@@ -1,0 +1,58 @@
+{
+  "Guida TIMBRATURE": {
+    "Premessa": "Questo documento descrive le funzionalità del file Excel per la gestione delle timbrature, buoni pasto e ferie/permessi. Automatizza i calcoli secondo le specifiche dell'Università del Piemonte Orientale.",
+    "Installazione": {
+      "Autorizzazione macro": "Verificare che le macro VBA siano abilitate: clic destro sul file > Proprietà > Annulla blocco > OK > Apri file > Abilita macro.",
+      "Primo utilizzo": "All'apertura sono presenti fogli precompilati: Riepilogo e Gennaio."
+    },
+    "Foglio Riepilogo": {
+      "Importa Timbrature": "Importa dati da un file precedente. I dati devono iniziare da D5 con colonne D-G dedicate agli orari.",
+      "Data Odierna": "Porta il cursore alla cella corrispondente all'orario attuale.",
+      "Crea Foglio Mese": "Crea un nuovo foglio con formule e riepiloghi aggiornati.",
+      "Cancella Foglio Mese": "Elimina un foglio mese e aggiorna i riferimenti.",
+      "Crea Nuovo Anno": "Genera un nuovo file per l'anno selezionato con formule aggiornate."
+    },
+    "Utilizzo del file": {
+      "Apertura": "Il sistema chiede se andare al giorno corrente e posiziona il cursore di conseguenza.",
+      "Compilazione orari": "Inserire orari in formato hh:mm. Il file calcola pause, esuberi, buoni pasto.",
+      "MOPER": "Gestione entrata flessibile. Ritardi segnalati e compensati.",
+      "Orario ridotto (cod. 91)": "Inserire solo entrata e uscita, senza pausa. Il file riconosce l'orario ridotto.",
+      "Ferie/Permessi": "Inserire 'F' per ferie, 'P18H' per permessi. Il file aggiorna celle e riepiloghi.",
+      "Festività obbligatorie": "Inserire 'Fest' per festività. Il file aggiorna celle e buoni pasto.",
+      "Malattia": "Inserire 'M' per malattia. Il file aggiorna celle e buoni pasto.",
+      "Recuperi da esubero": "Inserire 'R' per recuperare ore. Il file aggiorna celle e riepiloghi."
+    },
+    "Legende": {
+      "Codici": {
+        "F": "Ferie",
+        "Fest": "Festività",
+        "P18H": "Permessi",
+        "M": "Malattia",
+        "R": "Recupero ore"
+      },
+      "Ferie": {
+        "Ferie maturate": "Ferie maturate a fine mese",
+        "Ferie utilizzate": "Totale ferie utilizzate",
+        "Ferie residue anno prec": "Riporto ferie anno precedente",
+        "MOPER": "Motivi personali (entrata/uscita fuori orario)"
+      },
+      "Buoni Pasto": {
+        "gg. Lav.vi": "Giorni lavorativi del mese",
+        "gg. Eff. Lav": "Giorni lavorati fino ad oggi",
+        "Mese prec.": "Buoni pasto eccedenti",
+        "Residui": "Residui effettivi",
+        "Riepilogo": {
+          "EROGATI": "Buoni pasto erogati",
+          "EFFET.": "Giorni lavorati",
+          "RESIDUO": "Buoni pasto in attivo/negativo"
+        }
+      },
+      "Esubero/Straordinario/Debito": {
+        "Straordinario": "Esubero > 1 ora",
+        "Esubero": "Esubero < 1 ora",
+        "Tot. Esubero": "Somma esubero e straordinario",
+        "Debito": "Ore < 7:12"
+      }
+    }
+  }
+}

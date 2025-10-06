@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guida TIMBRATURE</title>
+  <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
+  <link rel="stylesheet" href="taskpane.css" />
+</head>
+<body class="ms-Fabric">
+  <div class="ms-Grid">
+    <div class="ms-Grid-row ms-bgColor-themeLighter ms-font-xl ms-fontWeight-semibold" style="padding: 12px;">
+      Guida TIMBRATURE
+    </div>
+    <div class="ms-Grid-row" style="padding: 8px;">
+      <input type="text" id="searchBox" placeholder="Cerca..." class="ms-TextField-field" style="width: 100%; padding: 6px;" />
+    </div>
+    <div class="ms-Grid-row" style="padding: 8px;">
+      <div id="treeContainer" class="ms-font-m"></div>
+    </div>
+    <div class="ms-Grid-row" style="padding: 8px;">
+      <div id="contentContainer" class="ms-font-m ms-borderColor-neutralTertiary ms-border" style="padding: 10px; background-color: #f9f9f9;"></div>
+    </div>
+  </div>
+  <script src="taskpane_tree.js"></script>
+</body>
+</html>
