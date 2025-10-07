@@ -1,0 +1,73 @@
+
+/* Layout base */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+/* Intestazione */
+.ms-Grid-row.ms-bgColor-neutralLighter {
+  padding: 16px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+/* Titolo guida */
+.ms-font-su {
+  color: #323130;
+}
+
+/* Barra di ricerca */
+#searchBox {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 12px 0;
+  border: 1px solid #c8c8c8;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Lista argomenti */
+.ms-List {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ms-ListItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f3f2f1;
+}
+
+.ms-ListItem:hover {
+  background-color: #f3f2f1;
+}
+
+.ms-ListItem i {
+  margin-right: 8px;
+  color: #0078d4;
+}
+
+/* Contenuto argomento */
+#topicContent {
+  padding: 16px;
+  border-top: 1px solid #e1e1e1;
+  background-color: #faf9f8;
+  margin-top: 12px;
+}
+
+#topicContent h3 {
+  color: #005a9e;
+  margin-bottom: 8px;
+}
+
+#topicContent p {
+  margin-bottom: 12px;
+  line-height: 1.5;
+  color: #323130;
+}
