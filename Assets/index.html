@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guida Interattiva TIMBRATURE</title>
+  
+  <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css" />
+  <link rel="stylesheet" href="taskpane.css" />
+
+  <link rel="icon" type="image/png" href="assets/icon-32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="assets/icon-16.png" sizes="16x16">
+  
+</head>
+<body class="ms-Fabric">
+  <div class="ms-Grid">
+    <div class="ms-Grid-row ms-bgColor-neutralLighter">
+      <div class="ms-Grid-col ms-sm12 ms-font-su ms-fontWeight-semibold">
+        
+        <img src="assets/Logo-filled.png" alt="Logo TIMBRATURE" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+        Guida TIMBRATURE
+      </div>
+    </div>
+
+    <div class="ms-Grid-row">
+      <div class="ms-Grid-col ms-sm12">
+        <input type="text" id="searchBox" placeholder="Cerca..." class="ms-TextField" />
+      </div>
+    </div>
+
+    <div class="ms-Grid-row">
+      <div class="ms-Grid-col ms-sm12">
+        <ul id="helpTree" class="ms-List">
+          </ul>
+      </div>
+    </div>
+
+    <div id="topicContent" class="ms-Grid-row ms-font-m" style="margin-top: 20px;">
+      </div>
+  </div>
+
+  <script src="taskpane_tree.js"></script>
+</body>
+</html>
