@@ -1,27 +1,304 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Guida TIMBRATURE</title>
-  <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
-  <link rel="stylesheet" href="taskpane.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guida File Timbrature</title>
+
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+
+    <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
+
+    <style>
+        body {
+            padding: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+            background-color: #fafafa;
+        }
+        main {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        h1, h2, h3 {
+            font-weight: 600;
+            color: #333;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        h3 {
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        /* Search Bar */
+        #search-container {
+            margin-bottom: 20px;
+        }
+        #search-box {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Table of Contents / Menu */
+        #table-of-contents ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #table-of-contents li {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #table-of-contents li:hover {
+            background-color: #f5f5f5;
+        }
+        #table-of-contents li.active {
+            background-color: #e6e6e6;
+            font-weight: bold;
+        }
+        
+        .content-section {
+            margin-bottom: 25px;
+        }
+        .hidden {
+            display: none;
+        }
+        
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .attention {
+            background-color: #fff4e0;
+            border-left: 4px solid #ff9800;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        mark {
+            background-color: #fffb00;
+            color: black;
+            border-radius: 2px;
+            padding: 1px 2px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
-<body class="ms-Fabric">
-  <div class="ms-Grid">
-    <div class="ms-Grid-row ms-bgColor-themeLighter ms-font-xl ms-fontWeight-semibold" style="padding: 12px;">
-      Guida TIMBRATURE
-    </div>
-    <div class="ms-Grid-row" style="padding: 8px;">
-      <input type="text" id="searchBox" placeholder="Cerca..." class="ms-TextField-field" style="width: 100%; padding: 6px;" />
-    </div>
-    <div class="ms-Grid-row" style="padding: 8px;">
-      <div id="treeContainer" class="ms-font-m"></div>
-    </div>
-    <div class="ms-Grid-row" style="padding: 8px;">
-      <div id="contentContainer" class="ms-font-m ms-borderColor-neutralTertiary ms-border" style="padding: 10px; background-color: #f9f9f9;"></div>
-    </div>
-  </div>
-  <script src="taskpane_tree.js"></script>
+
+<body class="ms-font-m ms-Fabric">
+    <main>
+        <h1>Guida File Timbrature</h1>
+
+        <div id="search-container">
+            <input type="text" id="search-box" placeholder="Cerca nella guida...">
+        </div>
+        
+        <nav id="table-of-contents">
+            <ul>
+                <li data-target="premessa">1.0 Premessa</li>
+                <li data-target="installazione">2.0 Installazione e primo utilizzo</li>
+                <li data-target="utilizzo">3.0 Utilizzo del file</li>
+                <li data-target="legenda">4.0 Legenda</li>
+            </ul>
+        </nav>
+
+        <div id="guide-content">
+            <div id="premessa" class="content-section">
+                <h2>1.0 Premessa</h2>
+                <p>Questo documento descrive le funzionalità e le modalità di utilizzo del file excel creato per tenere traccia delle timbrature, dei buoni pasto e delle ferie/permessi richiesti e/o utilizzati. [cite: 3]</p>
+                <p>Il file è stato progettato per automatizzare tutti i calcoli necessari per monitorare le attività lavorative durante l'anno, richiedendo all'utente solo l'inserimento degli orari di entrata e uscita. [cite: 4, 5] Tutti i calcoli (esuberi, flessibilità, ferie, permessi, buoni pasto) sono automatizzati secondo le specifiche dell’Università del Piemonte Orientale. [cite: 6]</p>
+            </div>
+
+            <div id="installazione" class="content-section hidden">
+                <h2>2.0 Installazione e primo utilizzo</h2>
+                <p>Per il corretto funzionamento, il file utilizza formule e macro VBA. [cite: 27] È quindi necessario assicurarsi che le macro siano abilitate. [cite: 27]</p>
+                <h3>Abilitare le Macro</h3>
+                <ol>
+                    <li>Cliccare con il tasto destro sul file e selezionare <strong>Proprietà</strong>. [cite: 29]</li>
+                    <li>Nella scheda "Generale", se presente in basso la sezione "Sicurezza", spuntare la casella "Annulla blocco". [cite: 30, 31]</li>
+                    <li>Aprire il file e, se compare un avviso di sicurezza, cliccare su <strong>Abilita contenuto</strong>. [cite: 32]</li>
+                </ol>
+                <p class="attention">Questa operazione va eseguita solo la prima volta che si utilizza il file sulla postazione di lavoro o ogni volta che il file viene copiato o rinominato. [cite: 33]</p>
+                
+                <h3>Foglio Riepilogo</h3>
+                <p>Il foglio "Riepilogo" è un cruscotto che riassume i dati di tutti i mesi e contiene i pulsanti per gestire i fogli di lavoro mensili. [cite: 39]</p>
+                <ul>
+                    <li><strong>Importa Timbrature:</strong> Permette di importare timbrature da un altro file Excel per evitare di reinserirle manualmente. [cite: 42] ATTENZIONE: I dati nel file corrente verranno sovrascritti. [cite: 44]</li>
+                    <li><strong>Data Odierna:</strong> Porta il cursore alla data odierna. [cite: 54]</li>
+                    <li><strong>Crea Foglio Mese:</strong> Crea un nuovo foglio per il mese specificato. [cite: 61]</li>
+                    <li><strong>Cancella Foglio Mese:</strong> Elimina il foglio di un mese, aggiornando le formule. [cite: 67]</li>
+                    <li><strong>Crea Nuovo Anno:</strong> Crea un nuovo file per l'anno specificato. [cite: 70]</li>
+                </ul>
+            </div>
+
+            <div id="utilizzo" class="content-section hidden">
+                <h2>3.0 Utilizzo del file</h2>
+                <p>È sufficiente compilare le celle di entrata e uscita nel formato <code>hh:mm</code>. [cite: 79] Il file calcola automaticamente le ore lavorate, l'eventuale esubero (FLEP) o debito (FLEN) e assegna il buono pasto se si superano le 6:12 ore di lavoro. [cite: 85, 86, 88]</p>
+                
+                <h3>MOPER</h3>
+                <p>L'orario di lavoro ha un'entrata flessibile tra le 8:00 e le 9:00. [cite: 90] Entrando dopo le 9:00, il ritardo viene segnato in rosso e aggiunto alla colonna MOPER. [cite: 91]</p>
+
+                <h3>Ferie/permessi</h3>
+                <p>Per inserire ferie o permessi, usare i seguenti codici nella prima cella di entrata (<code>Entrata</code>):</p>
+                <ul>
+                    <li><strong>Ferie:</strong> Inserire <code>F</code>. [cite: 99]</li>
+                    <li><strong>Permessi (P18H):</strong> Inserire <code>P18H</code>. [cite: 100]</li>
+                    <li><strong>Festività:</strong> Inserire <code>Fest</code>. [cite: 104]</li>
+                    <li><strong>Malattia:</strong> Inserire <code>M</code>. [cite: 107]</li>
+                    <li><strong>Recupero ore:</strong> Inserire <code>R</code>. [cite: 110]</li>
+                </ul>
+            </div>
+            
+            <div id="legenda" class="content-section hidden">
+                <h2>4.0 Legenda</h2>
+                
+                <h3>Inserimenti</h3>
+                <table>
+                    <thead><tr><th>Codice</th><th>Descrizione</th></tr></thead>
+                    <tbody>
+                        <tr><td>F</td><td>Ferie</td></tr> [cite: 113]
+                        <tr><td>Fest</td><td>Festività</td></tr> [cite: 113]
+                        <tr><td>P18H</td><td>Permessi (18h/anno)</td></tr> [cite: 113]
+                        <tr><td>M</td><td>Malattia</td></tr> [cite: 113]
+                        <tr><td>R</td><td>Recupero ore da Esubero</td></tr> [cite: 113]
+                    </tbody>
+                </table>
+
+                <h3>Voci di Calcolo</h3>
+                <table>
+                     <thead><tr><th>Voce</th><th>Descrizione</th></tr></thead>
+                     <tbody>
+                        <tr><td>MOPER</td><td>Motivi personali (entrata/uscita fuori orario)</td></tr> [cite: 114]
+                        <tr><td>Straordinario</td><td>Esubero ore superiore a 1 ora (ECCE)</td></tr> [cite: 116]
+                        <tr><td>Esubero</td><td>Esubero ore inferiore a 1 ora (FLEP&lt;1)</td></tr> [cite: 116]
+                        <tr><td>Debito</td><td>Debito ore (meno di 7:12) (FLEN)</td></tr> [cite: 116]
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchBox = document.getElementById('search-box');
+            const guideContent = document.getElementById('guide-content');
+            const originalContents = {}; // Oggetto per salvare i contenuti originali
+            const sections = document.querySelectorAll('.content-section');
+            const menuItems = document.querySelectorAll('#table-of-contents li');
+
+            // Salva il contenuto originale di ogni sezione
+            sections.forEach(section => {
+                originalContents[section.id] = section.innerHTML;
+            });
+
+            // Funzione per mostrare una sezione e nascondere le altre
+            function showSection(targetId) {
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+
+                menuItems.forEach(item => {
+                    if (item.dataset.target === targetId) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+
+            // Aggiungi l'evento click ai menu
+            menuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    showSection(item.dataset.target);
+                    // Pulisce la ricerca quando si cambia sezione
+                    if (searchBox.value !== '') {
+                        searchBox.value = '';
+                        performSearch();
+                    }
+                });
+            });
+
+            // Funzione per la ricerca
+            function performSearch() {
+                const searchTerm = searchBox.value.trim().toLowerCase();
+
+                if (searchTerm === '') {
+                    // Ripristina il contenuto e nascondi le sezioni non attive
+                    sections.forEach(section => {
+                        section.innerHTML = originalContents[section.id];
+                    });
+                    // Mostra la prima sezione di default se la ricerca è vuota
+                    showSection(menuItems[0].dataset.target); 
+                    return;
+                }
+
+                // Se si sta cercando, mostra tutte le sezioni
+                sections.forEach(section => {
+                    section.classList.remove('hidden');
+                    // Ripristina prima di evidenziare
+                    let originalSectionContent = originalContents[section.id];
+                    
+                    try {
+                        const regex = new RegExp(searchTerm, 'gi');
+                        const newContent = originalSectionContent.replace(regex, (match) => `<mark>${match}</mark>`);
+                        section.innerHTML = newContent;
+                    } catch (e) {
+                        // Gestisce errori di regex per caratteri speciali
+                        section.innerHTML = originalSectionContent;
+                    }
+                });
+
+                // Rimuovi lo stato attivo da tutti i menu
+                menuItems.forEach(item => item.classList.remove('active'));
+            }
+
+            searchBox.addEventListener('input', performSearch);
+
+            // Mostra la prima sezione all'avvio
+            showSection('premessa');
+        });
+    </script>
 </body>
 </html>
