@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+
   <Id>ce11ed4b-f121-45d0-9eb0-fb72a0b0e219</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Federico Copeta</ProviderName>
@@ -9,31 +14,76 @@
   <IconUrl DefaultValue="https://federicocopeta.github.io/TimbratureGuida/Assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://federicocopeta.github.io/TimbratureGuida/Assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://github.com/FedericoCopeta/TimbratureGuida"/>
+
+  <!-- Consente di caricare risorse dal tuo dominio GitHub Pages -->
   <AppDomains>
     <AppDomain>https://federicocopeta.github.io</AppDomain>
   </AppDomains>
+
   <Hosts>
     <Host Name="Workbook"/>
   </Hosts>
+
+  <!-- Shared runtime per poter usare showAsTaskpane()/hide() -->
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="SharedRuntime" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+
+  <!-- Sorgente predefinita del task pane -->
   <DefaultSettings>
     <SourceLocation DefaultValue="https://federicocopeta.github.io/TimbratureGuida/index.html"/>
   </DefaultSettings>
+
   <Permissions>ReadWriteDocument</Permissions>
-  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+                    xsi:type="VersionOverridesV1_0">
     <Hosts>
       <Host xsi:type="Workbook">
+
+        <!-- Shared runtime: usa la stessa pagina del task pane -->
+        <Runtimes>
+          <Runtime resid="Taskpane.Url" lifetime="long"/>
+        </Runtimes>
+
         <DesktopFormFactor>
           <GetStarted>
             <Title resid="GetStarted.Title"/>
             <Description resid="GetStarted.Description"/>
             <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
           </GetStarted>
-          
+
+          <!-- Pulsante in Home per aprire il task pane -->
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="GuidaTimbrature.Group" label="Guida">
+                <Control xsi:type="Button" id="GuidaTimbrature.OpenPane">
+                  <Label resid="TaskpaneButton.Label"/>
+                  <Supertip>
+                    <Title resid="TaskpaneButton.Label"/>
+                    <Description resid="TaskpaneButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <!-- Auto-apertura legata al documento -->
+                    <TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
           </ExtensionPoint>
+
         </DesktopFormFactor>
       </Host>
     </Hosts>
+
     <Resources>
       <bt:Images>
         <bt:Image id="Icon.16x16" DefaultValue="https://federicocopeta.github.io/TimbratureGuida/Assets/icon-16.png"/>

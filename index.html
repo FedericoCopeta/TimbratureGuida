@@ -6,7 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Guida File Timbrature</title>
 
-    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<!-- Carica la libreria Office.js nel task pane -->
+<script src="https://.microsoft.com/lib/1/hosted/office.js</script>
+<script>
+  Office.onReady(() => {
+    // Imposta una sola volta la proprietà nel file per aprire il riquadro con il documento
+    try {
+      Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", true);
+      Office.context.document.settings.saveAsync();
+    } catch (e) {
+      console.warn("Impossibile salvare AutoShowTaskpaneWithDocument:", e);
+    }
+  });
+</script>
 
     <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
 
