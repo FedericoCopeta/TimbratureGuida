@@ -57,7 +57,7 @@
 
           <!-- Pulsante in Home per aprire il task pane -->
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
-            <OfficeTab id="TabHome">
+            <OfficeTab id="TabHelp">
               <Group id="GuidaTimbrature.Group" label="Guida">
                 <Control xsi:type="Button" id="GuidaTimbrature.OpenPane">
                   <Label resid="TaskpaneButton.Label"/>
