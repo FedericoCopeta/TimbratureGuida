@@ -7,7 +7,6 @@
     <title>Guida Timbrature</title>
 
     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-
     <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
 
     <style>
@@ -15,168 +14,138 @@
             padding: 0;
             margin: 0;
             font-family: "Segoe UI", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", Helvetica, Arial, sans-serif;
-            background-color: #fff;
+            background-color: #faf9f8; 
             color: #333;
             font-size: 14px;
             line-height: 1.6;
         }
 
-        /* Barra superiore fissa in alto */
+        /* HEADER */
         header {
             position: sticky;
             top: 0;
             background-color: #fff;
             padding: 10px 15px;
             z-index: 100;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #edebe9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        /* Contenitore flessibile per Icone e Ricerca */
-        .top-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px; 
-        }
+        .top-bar { display: flex; align-items: center; gap: 10px; }
 
-        /* Stile delle icone (Indietro e Home) */
         .nav-icon {
-            font-size: 18px;
-            color: #666;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 4px;
-            transition: all 0.2s;
-            display: flex; 
-            align-items: center;
-            justify-content: center;
+            font-size: 18px; color: #605e5c; cursor: pointer; padding: 6px;
+            border-radius: 4px; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
         }
-        .nav-icon:hover {
-            background-color: #f3f2f1;
-            color: #107c10; /* Verde Excel */
-        }
-        .nav-icon.disabled {
-            color: #e1dfdd;
-            cursor: default;
-        }
-        .nav-icon.disabled:hover {
-            background-color: transparent;
-            color: #e1dfdd;
-        }
+        .nav-icon:hover { background-color: #f3f2f1; color: #107c10; }
+        .nav-icon.disabled { color: #c8c6c4; cursor: default; }
+        .nav-icon.disabled:hover { background-color: transparent; }
 
-        /* Search Bar */
-        #search-container {
-            flex-grow: 1; 
-        }
+        #search-container { flex-grow: 1; position: relative; }
         #search-box {
-            width: 100%;
-            padding: 6px 10px;
-            border: 1px solid #ccc; 
-            border-bottom: 1px solid #777; 
-            border-radius: 2px;
-            font-size: 14px;
-            box-sizing: border-box; 
-            outline: none;
+            width: 100%; padding: 7px 10px; border: 1px solid #8a8886;
+            border-radius: 2px; font-size: 14px; outline: none; transition: border 0.2s;
         }
-        #search-box:focus {
-            border-bottom: 2px solid #107c10; /* Verde Excel quando attivo */
-        }
+        #search-box:focus { border-color: #107c10; border-bottom-width: 2px; }
 
-        /* Area Principale */
-        main {
-            padding: 15px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-bottom: 50px;
-        }
+        /* MAIN AREA */
+        main { padding: 0; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; height: calc(100vh - 55px); }
 
-        /* Menu di Navigazione */
-        #table-of-contents ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 10px 0 20px 0;
-        }
+        /* MENU NAVIGAZIONE */
+        #table-of-contents { background: #fff; border-bottom: 1px solid #edebe9; }
+        #table-of-contents ul { list-style-type: none; padding: 0; margin: 0; display: flex; overflow-x: auto; }
+        
         #table-of-contents li {
-            padding: 12px 15px;
-            border-bottom: 1px solid #f3f2f1;
-            cursor: pointer;
-            transition: all 0.1s;
-            display: flex;
-            align-items: center;
-            color: #333;
-        }
-        
-        /* HOVER VERDE (Stile Excel) */
-        #table-of-contents li:hover {
-            background-color: #e0f2e0; /* Sfondo verde chiaro */
-            color: #107c10; /* Testo Verde scuro */
-            border-left: 3px solid #107c10; 
-            padding-left: 12px; 
+            padding: 12px 15px; 
+            cursor: pointer; 
+            white-space: nowrap; 
+            font-size: 13px; 
+            color: #605e5c;
+            border-bottom: 3px solid transparent; 
+            transition: all 0.2s;
         }
 
-        /* Stato attivo (selezionato) */
-        #table-of-contents li.active {
-            font-weight: 600;
-            background-color: #f3f2f1;
+        /* HOVER VERDE MENU */
+        #table-of-contents li:hover { 
+            background-color: #e0f2e0; /* Sfondo verdino */
+            color: #107c10; /* Testo verde */
+            border-bottom: 3px solid #107c10; /* Bordo verde */
         }
 
-        /* Tipografia Contenuti */
+        #table-of-contents li.active { 
+            font-weight: 600; 
+            color: #107c10; 
+            border-bottom: 3px solid #107c10; 
+            background-color: #fff;
+        }
+
+        /* CONTENT AREA */
+        #scroll-container { padding: 20px; overflow-y: auto; flex-grow: 1; background-color: #fff; }
+
+        /* Typography & Elements */
         h1 { font-size: 24px; margin: 0 0 20px 0; font-weight: 600; color: #107c10; } 
-        h2 { font-size: 20px; margin-top: 30px; margin-bottom: 15px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 5px;}
-        h3 { font-size: 16px; margin-top: 20px; margin-bottom: 10px; font-weight: 600;}
-        h4 { font-size: 14px; margin-top: 15px; margin-bottom: 5px; font-weight: 600; color: #555; }
+        h2 { font-size: 18px; margin-top: 25px; margin-bottom: 10px; color: #323130; border-bottom: 1px solid #edebe9; padding-bottom: 5px; font-weight: 600; }
+        h3 { font-size: 15px; margin-top: 15px; margin-bottom: 5px; font-weight: 600; color: #323130; }
+        h4 { font-size: 13px; margin-top: 10px; margin-bottom: 5px; font-weight: 700; color: #605e5c; text-transform: uppercase; letter-spacing: 0.5px;}
         
-        .content-section { margin-bottom: 25px; }
-        .hidden { display: none; }
+        p { margin-bottom: 15px; text-align: justify; color: #323130; }
+        code { background-color: #f3f2f1; padding: 2px 5px; border-radius: 3px; font-family: monospace; color: #a4262c; }
         
-        /* Formattazione testo */
-        p { margin-bottom: 15px; text-align: justify; }
-        
-        code { background-color: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
-        
-        /* Stile per i box gialli di attenzione */
-        .attention { 
-            background-color: #fff4e0; 
-            border-left: 4px solid #ff9800; 
-            padding: 12px; 
-            margin: 20px 0; 
-            font-size: 13px;
-        }
+        .attention { background-color: #fff4ce; border-left: 4px solid #ffaa44; padding: 12px; margin: 20px 0; font-size: 13px; border-radius: 2px; }
 
-        /* STILE PER LE TUE ICONE PERSONALIZZATE */
-        .custom-icon {
-            height: 20px;       
-            width: auto;        
-            vertical-align: text-bottom; 
-            margin: 0 4px;      
-        }
+        /* Images */
+        .custom-icon { height: 18px; width: auto; vertical-align: text-bottom; margin: 0 2px; }
+        .tutorial-img { display: block; margin: 15px auto; border: 1px solid #edebe9; box-shadow: 0 4px 8px rgba(0,0,0,0.05); max-width: 95%; border-radius: 4px; }
         
-        /* Stile generale immagini */
-        img { max-width: 100%; height: auto; }
-
-        /* Stile specifico per gli screenshot del tutorial */
-        .tutorial-img {
-            display: block; /* Va a capo */
-            margin: 15px auto; /* Centrato con spazio verticale */
-            border: 1px solid #ddd; /* Bordino leggero */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Leggera ombra per staccarlo */
-            max-width: 90%; /* Non troppo largo */
-        }
-        /* Rimuoviamo stili extra dalle icone nel testo */
-        img.custom-icon { border: none; margin: 0 4px; box-shadow: none; }
-        
-        mark { background-color: #fffb00; color: black; }
-
-        /* Tabelle */
+        /* Tables */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-        th, td { border: 1px solid #e1dfdd; padding: 10px; text-align: left; }
+        th, td { border: 1px solid #edebe9; padding: 10px; text-align: left; }
         th { background-color: #f3f2f1; font-weight: 600; }
-        
-        /* Liste semplici */
-        ul.simple-list { padding-left: 20px; margin-bottom: 15px; }
-        ul.simple-list li { margin-bottom: 8px; }
 
-        /* Spaziatura nelle liste ordinate del tutorial */
-        ol li { margin-bottom: 15px; }
+        /* LISTA LINK RAPIDI (Argomenti Consigliati) */
+        .quick-links { list-style: none; padding: 0; margin-top: 10px; border-top: 1px solid #edebe9; }
+        .quick-links li {
+            padding: 12px 10px; border-bottom: 1px solid #edebe9; cursor: pointer; 
+            display: flex; align-items: center; transition: background 0.2s;
+        }
+        
+        /* --- MODIFICA: HOVER VERDE PER LISTA RAPIDA --- */
+        .quick-links li:hover { 
+            background-color: #e0f2e0; /* Verde chiaro sfondo */
+            color: #107c10; /* Verde scuro testo */
+        }
+        .quick-links li:hover span {
+            color: #107c10; /* Forza il colore verde anche sul testo */
+        }
+        /* ----------------------------------------------- */
+
+        .quick-links li i { margin-right: 12px; color: #107c10; font-size: 16px; }
+        .quick-links li span { font-weight: 500; color: #323130; }
+
+        /* INTERFACCIA RICERCA */
+        #search-output-container { display: none; padding: 0; }
+        
+        .search-best-match {
+            background: #fff; border: 1px solid #edebe9; border-radius: 4px; 
+            padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer; transition: transform 0.1s;
+        }
+        .search-best-match:hover { border-color: #107c10; }
+        .search-best-match h3 { margin-top: 0; color: #107c10; font-size: 16px; display: flex; align-items: center; }
+        .search-best-match h3 i { margin-right: 8px; }
+        .search-snippet { font-size: 13px; color: #605e5c; margin-top: 5px; }
+
+        .search-results-list { list-style: none; padding: 0; }
+        .search-result-item {
+            padding: 10px; border-bottom: 1px solid #f3f2f1; cursor: pointer;
+        }
+        .search-result-item:hover { background-color: #faf9f8; }
+        .search-result-title { font-weight: 600; color: #323130; display: block; }
+        .search-result-path { font-size: 11px; color: #605e5c; text-transform: uppercase; margin-top: 2px;}
+
+        mark { background-color: #fff100; color: #000; padding: 0 2px; }
+        .hidden { display: none !important; }
+
     </style>
 </head>
 
@@ -185,9 +154,7 @@
     <header>
         <div class="top-bar">
             <i class="ms-Icon ms-Icon--Back nav-icon disabled" id="btn-back" title="Indietro"></i>
-            
             <i class="ms-Icon ms-Icon--Home nav-icon" id="btn-home" title="Pagina Principale"></i>
-
             <div id="search-container">
                 <input type="text" id="search-box" placeholder="Cerca...">
             </div>
@@ -198,252 +165,322 @@
         <nav id="table-of-contents">
             <ul>
                 <li data-target="iniziare">Per iniziare</li>
-                <li data-target="installazione">Installazione e primo utilizzo</li>
-                <li data-target="riepilogo">Riepilogo e Dashboard</li>
-                <li data-target="utilizzo">Utilizzo del file</li>
-                <li data-target="legenda">Legenda Codici</li>
+                <li data-target="installazione">Installazione</li>
+                <li data-target="riepilogo">Riepilogo</li>
+                <li data-target="utilizzo">Utilizzo</li>
+                <li data-target="legenda">Legenda</li>
             </ul>
         </nav>
 
-        <div id="guide-content">
+        <div id="scroll-container">
             
-            <div id="premessa" class="content-section">
-                <h1>Guida Timbrature</h1>
+            <div id="guide-content">
                 
-                <p>Benvenuto nella guida ufficiale.</p>
-                
-                <p>Questo documento descrive le funzionalità e le modalità di utilizzo del file excel creato per tenere traccia delle timbrature, dei buoni pasto e delle ferie/permessi richiesti e/o utilizzati.</p> 
-                
-                <p>Il file è stato progettato per automatizzare tutti i calcoli necessari per monitorare le attività lavorative durante l'anno, richiedendo all'utente solo l'inserimento degli orari di entrata e uscita. Tutti i calcoli (esuberi, flessibilità, ferie, permessi, buoni pasto) sono automatizzati secondo le specifiche dell’Università del Piemonte Orientale.</p>
+                <div id="iniziare" class="content-section">
+                    <h1>Benvenuto</h1>
+                    <p>
+                        Il file <strong>Timbrature UPO</strong> è uno strumento automatizzato progettato per semplificare la gestione mensile dell'orario lavorativo. 
+                        Ti permette di registrare entrate e uscite ottenendo in tempo reale il calcolo di flessibilità, buoni pasto e residuo ferie, in conformità con le normative dell'Ateneo.
+                    </p>
+                    <p>In questa guida troverai tutte le istruzioni per configurare il file e risolvere eventuali dubbi comuni.</p>
 
-                <div class="attention">
-                    <strong>Nota:</strong> Usa il menu sopra o la barra di ricerca per navigare tra gli argomenti.
-                </div>
-            </div>
-
-            <div id="iniziare" class="content-section hidden">
-                <h2>Per iniziare</h2>
-                <p>Questa sezione contiene le informazioni preliminari.</p>
-                <h3>Prerequisiti</h3>
-                <p>Per utilizzare questo strumento è necessario disporre di Microsoft Excel (versione 2016 o successiva consigliata).</p>
-            </div>
-
-            <div id="installazione" class="content-section hidden">
-                <h2>Installazione e primo utilizzo</h2>
-                <p>Per il corretto funzionamento, il file utilizza formule e macro VBA. È quindi necessario assicurarsi che le macro siano abilitate.</p>
-                
-                <h3>Abilitare le Macro</h3>
-                <ol>
-                    <li>Cliccare con il tasto destro sul file scaricato e selezionare <strong>Proprietà</strong>.</li>
-                    <li>Nella scheda "Generale", in basso nella sezione "Sicurezza", spuntare la casella <strong>"Annulla blocco"</strong> e cliccare OK.
-                        <img src="img/prop_sblocco.png" alt="Schermata Proprietà con opzione Annulla Blocco" class="tutorial-img">
-                    </li>
-                    <li>Aprire il file Excel. Se compare un avviso di sicurezza giallo in alto, cliccare su <strong>Abilita contenuto</strong>.
-                        <img src="img/barra_macro.png" alt="Barra gialla di sicurezza Excel" class="tutorial-img">
-                    </li>
-                </ol>
-                
-                <p class="attention">Questa operazione va eseguita solo la prima volta che si utilizza il file sulla postazione di lavoro.</p>
-            </div>
-
-            <div id="riepilogo" class="content-section hidden">
-                <h2>Riepilogo e Dashboard</h2>
-                
-                <h3>Foglio Riepilogo</h3>
-                <p>Il foglio "Riepilogo" è un cruscotto che riassume i dati di tutti i mesi. Da questo foglio di lavoro è possibile avere sotto controllo i totali di tutti i contatori delle ore lavorative (Flessibilità positiva/Negativa, Ferie, buoni pasto, etc.).</p>
-                
-                <p>Oltre alla consultazione dei totali, questo foglio permette la gestione dei fogli mensili tramite appositi pulsanti (Creazione mese, Cancellazione mese, Nuovo anno).</p>
-
-                <h4>Accesso e Navigazione</h4>
-                <p>È possibile accedere al Riepilogo selezionando la linguetta in basso o cliccando sul pulsante <strong><img src="img/Riepilogo.png" class="custom-icon" alt="Icona Riepilogo"> Riepilogo</strong> nel menu <strong>TIMBRATURE</strong>.</p>
-                
-                <div class="attention">
-                    <strong>Funzionalità del pulsante <img src="img/Riepilogo.png" class="custom-icon" alt="Icona Riepilogo"> Riepilogo:</strong><br>
-                    Il pulsante nel menu TIMBRATURE ha una doppia funzione: cliccandolo si viene portati al foglio Riepilogo; cliccandolo nuovamente, si viene riportati automaticamente al mese su cui si stava lavorando prima del click.
-                </div>
-
-                <h3>Dashboard</h3>
-                <p>La Dashboard offre una rappresentazione visuale dell'andamento annuale tramite grafici intuitivi. È accessibile cliccando sul pulsante <strong><img src="img/Dashboard.png" class="custom-icon" alt="Icona Dashboard"> Dashboard</strong> nel menu <strong>TIMBRATURE</strong>.</p>
-                
-                <div class="attention">
-                    <strong>Navigazione e Chiusura Automatica:</strong><br>
-                    Il foglio Dashboard ha un comportamento dinamico per mantenere l'interfaccia pulita:
-                    <ul>
-                        <li><strong>Chiusura automatica:</strong> Se si clicca su un qualsiasi altro foglio di lavoro (es. Gennaio), la Dashboard viene nascosta automaticamente.</li>
-                        <li><strong>Tasto "Torna indietro":</strong> Cliccando nuovamente sul pulsante <strong><img src="img/Dashboard.png" class="custom-icon" alt="Icona Dashboard"> Dashboard</strong> nel menu, il foglio verrà nascosto e si verrà riportati al mese in cui si stava lavorando.</li>
+                    <h2>Argomenti consigliati</h2>
+                    <ul class="quick-links">
+                        <li onclick="customNavigate('installazione')">
+                            <i class="ms-Icon ms-Icon--Download"></i>
+                            <span>Abilitare le macro al primo avvio</span>
+                        </li>
+                        <li onclick="customNavigate('riepilogo')">
+                            <i class="ms-Icon ms-Icon--Table"></i>
+                            <span>Capire il foglio Riepilogo</span>
+                        </li>
+                        <li onclick="customNavigate('legenda')">
+                            <i class="ms-Icon ms-Icon--Dictionary"></i>
+                            <span>Codici per Ferie e Permessi (F, M, Fest)</span>
+                        </li>
+                        <li onclick="customNavigate('utilizzo')">
+                            <i class="ms-Icon ms-Icon--Clock"></i>
+                            <span>Come gestire i ritardi (MOPER)</span>
+                        </li>
                     </ul>
                 </div>
+
+                <div id="installazione" class="content-section hidden">
+                    <h2>Installazione e primo utilizzo</h2>
+                    <p>Il file utilizza automazioni avanzate (VBA). Per questo motivo, Windows e Excel potrebbero richiedere un'autorizzazione di sicurezza al primo avvio.</p>
+                    
+                    <h3>1. Sblocco del file (Windows)</h3>
+                    <p>Prima di aprire il file per la prima volta:</p>
+                    <ol>
+                        <li>Tasto destro sul file scaricato > <strong>Proprietà</strong>.</li>
+                        <li>In basso a destra, spunta la casella <strong>"Annulla blocco"</strong> e premi OK.</li>
+                    </ol>
+                    <img src="img/prop_sblocco.png" alt="Sblocco Proprietà" class="tutorial-img">
+
+                    <h3>2. Abilitazione contenuto (Excel)</h3>
+                    <p>All'apertura del file, noterai una barra gialla sotto il menu.</p>
+                    <ol>
+                        <li>Clicca sul pulsante <strong>Abilita contenuto</strong> per attivare i calcoli automatici.</li>
+                    </ol>
+                    <img src="img/barra_macro.png" alt="Barra Gialla Macro" class="tutorial-img">
+                </div>
+
+                <div id="riepilogo" class="content-section hidden">
+                    <h2>Riepilogo e Dashboard</h2>
+                    <p>Il cuore del sistema è il foglio Riepilogo, che agisce come centro di controllo per tutto l'anno lavorativo.</p>
+
+                    <h3>Foglio Riepilogo</h3>
+                    <p>Da qui puoi creare i nuovi mesi, cancellarli o archiviare l'anno. Accedi tramite la linguetta in basso o il menu:</p>
+                    <div class="attention">
+                        <strong><img src="img/Riepilogo.png" class="custom-icon"> Pulsante Riepilogo:</strong><br>
+                        Clicca una volta per andare al Riepilogo. Clicca di nuovo per tornare al mese su cui stavi lavorando (funzione "Torna indietro").
+                    </div>
+
+                    <h3>Dashboard Grafica</h3>
+                    <p>Per una visione d'insieme dell'andamento annuale (Ferie godute, Saldo ore, etc.):</p>
+                    <div class="attention">
+                        <strong><img src="img/Dashboard.png" class="custom-icon"> Pulsante Dashboard:</strong><br>
+                        Apre i grafici a schermo intero. La Dashboard si chiude automaticamente se cambi foglio o se riclicchi sul pulsante.
+                    </div>
+                </div>
+
+                <div id="utilizzo" class="content-section hidden">
+                    <h2>Utilizzo Quotidiano</h2>
+                    <p>Il file è progettato per richiedere il minimo sforzo. Devi inserire solo:</p>
+                    <ul>
+                        <li>Orario di Entrata (es. <code>08:05</code>)</li>
+                        <li>Orario di Uscita (es. <code>14:00</code>)</li>
+                    </ul>
+                    <p>Il calcolo di <strong>FLEP</strong> (Esubero), <strong>FLEN</strong> (Debito) e <strong>Buoni Pasto</strong> (dopo 6h 12m) è immediato.</p>
+                    
+                    <h3>Gestione Ritardi (MOPER)</h3>
+                    <p>La fascia di flessibilità è 08:00 - 09:00. Se timbri dopo le 09:00, il sistema segnerà il ritardo in rosso e lo conteggerà automaticamente nella colonna <strong>MOPER</strong> (Motivi Personali).</p>
+                </div>
+
+                <div id="legenda" class="content-section hidden">
+                    <h2>Legenda Codici</h2>
+                    <p>Per giustificativi, usa questi codici nella colonna "Entrata":</p>
+                    <table>
+                        <thead><tr><th>Codice</th><th>Significato</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>F</strong></td><td>Ferie</td></tr>
+                            <tr><td><strong>Fest</strong></td><td>Festività</td></tr>
+                            <tr><td><strong>P18H</strong></td><td>Permesso orario</td></tr>
+                            <tr><td><strong>M</strong></td><td>Malattia</td></tr>
+                            <tr><td><strong>R</strong></td><td>Recupero ore</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div id="utilizzo" class="content-section hidden">
-                <h2>Utilizzo del file</h2>
-                <p>È sufficiente compilare le celle di entrata e uscita nel formato <code>hh:mm</code>.</p>
-                <p>Il file calcola automaticamente le ore lavorate, l'eventuale esubero (FLEP) o debito (FLEN) e assegna il buono pasto se si superano le <strong>6 ore e 12 minuti</strong> di lavoro.</p>
+            <div id="search-output-container">
+                <h4 style="margin-bottom: 15px;">Miglior risultato</h4>
+                <div id="search-best-match-box"></div>
                 
-                <h3>MOPER (Motivi Personali)</h3>
-                <p>L'orario di lavoro ha un'entrata flessibile tra le 8:00 e le 9:00. Entrando dopo le 9:00, il ritardo viene segnato in rosso e aggiunto alla colonna MOPER.</p>
+                <h4 style="margin-top: 25px; margin-bottom: 10px;">Altri risultati</h4>
+                <ul id="search-results-list" class="search-results-list"></ul>
             </div>
-            
-            <div id="legenda" class="content-section hidden">
-                <h2>Legenda e Codici</h2>
-                <p>Per inserire ferie o permessi, usare i seguenti codici nella prima cella di entrata:</p>
-                <table>
-                    <thead><tr><th>Codice</th><th>Descrizione</th></tr></thead>
-                    <tbody>
-                        <tr><td><strong>F</strong></td><td>Ferie</td></tr>
-                        <tr><td><strong>Fest</strong></td><td>Festività</td></tr>
-                        <tr><td><strong>P18H</strong></td><td>Permessi (18h/anno)</td></tr>
-                        <tr><td><strong>M</strong></td><td>Malattia</td></tr>
-                        <tr><td><strong>R</strong></td><td>Recupero ore da Esubero</td></tr>
-                    </tbody>
-                </table>
-                
-                <h3>Voci di Calcolo</h3>
-                <table>
-                     <thead><tr><th>Voce</th><th>Significato</th></tr></thead>
-                     <tbody>
-                        <tr><td><strong>MOPER</strong></td><td>Motivi personali (fuori orario)</td></tr>
-                        <tr><td><strong>Straordinario</strong></td><td>Esubero ore superiore a 1 ora</td></tr>
-                        <tr><td><strong>Esubero</strong></td><td>Esubero ore inferiore a 1 ora</td></tr>
-                        <tr><td><strong>Debito</strong></td><td>Debito ore (meno di 7:12)</td></tr>
-                    </tbody>
-                </table>
-            </div>
+
         </div>
     </main>
 
     <script type="text/javascript">
+        // Variabili Globali
+        let historyStack = [];
+        let currentSection = 'iniziare';
+        const sections = document.querySelectorAll('.content-section');
+        const menuItems = document.querySelectorAll('#table-of-contents li');
+        const guideContainer = document.getElementById('guide-content');
+        const searchContainer = document.getElementById('search-output-container');
+        const originalContents = {}; 
+
+        // 1. Inizializzazione
         document.addEventListener('DOMContentLoaded', function () {
-            const searchBox = document.getElementById('search-box');
-            const btnHome = document.getElementById('btn-home');
-            const btnBack = document.getElementById('btn-back');
-            
-            // Stack per la cronologia del tasto Indietro
-            let historyStack = [];
-            let currentSection = 'premessa';
-
-            const originalContents = {}; 
-            const sections = document.querySelectorAll('.content-section');
-            const menuItems = document.querySelectorAll('#table-of-contents li');
-
-            // 1. Salva contenuti originali per il ripristino post-ricerca
+            // Salva il contenuto originale (senza evidenziazioni)
             sections.forEach(section => {
                 originalContents[section.id] = section.innerHTML;
             });
 
-            // Funzione principale di navigazione
-            function navigateTo(targetId, isBackAction = false) {
-                // Se non stiamo tornando indietro e cambiamo sezione, salva nella storia
-                if (!isBackAction && currentSection !== targetId) {
-                    historyStack.push(currentSection);
-                    updateBackButtonState();
-                }
-
-                currentSection = targetId;
-
-                // Mostra/Nascondi sezioni
-                sections.forEach(section => {
-                    if (section.id === targetId) {
-                        section.classList.remove('hidden');
-                        window.scrollTo(0,0); // Torna su quando cambi pagina
-                    } else {
-                        section.classList.add('hidden');
-                    }
-                });
-
-                // Evidenzia voce menu (se esiste nel menu)
-                let foundInMenu = false;
-                menuItems.forEach(item => {
-                    if (item.dataset.target === targetId) {
-                        item.classList.add('active');
-                        foundInMenu = true;
-                    } else {
-                        item.classList.remove('active');
-                    }
-                });
-            }
-
-            // Aggiorna stato visivo del tasto Indietro (grigio se vuoto)
-            function updateBackButtonState() {
-                if (historyStack.length > 0) {
-                    btnBack.classList.remove('disabled');
-                } else {
-                    btnBack.classList.add('disabled');
-                }
-            }
-
-            // --- EVENTI ---
-
-            // Click sul Menu
+            // Attiva i Listener per il MENU
             menuItems.forEach(item => {
                 item.addEventListener('click', () => {
-                    if (searchBox.value !== '') {
-                        searchBox.value = '';
-                        performSearch(); // Pulisce ricerca
-                    }
-                    navigateTo(item.dataset.target);
+                    showSection(item.dataset.target);
                 });
             });
+            
+            // Avvia alla prima pagina
+            showSection('iniziare');
+        });
 
-            // Click su Home
-            btnHome.addEventListener('click', () => {
-                if (searchBox.value !== '') {
-                    searchBox.value = '';
-                    performSearch();
+        // 2. Navigazione tra Sezioni
+        function showSection(targetId, isBackAction = false) {
+            // Gestione Storia
+            if (!isBackAction && currentSection !== targetId && currentSection !== 'search') {
+                historyStack.push(currentSection);
+                updateBackButton();
+            }
+            currentSection = targetId;
+
+            // UI Reset
+            searchContainer.style.display = 'none';
+            guideContainer.style.display = 'block';
+            document.getElementById('search-box').value = ''; 
+
+            // Mostra Sezione Corretta
+            sections.forEach(sec => {
+                if(sec.id === targetId) {
+                    sec.innerHTML = originalContents[sec.id]; // Reset HTML
+                    sec.classList.remove('hidden');
+                    // Scrolla in alto
+                    document.getElementById('scroll-container').scrollTop = 0;
+                } else {
+                    sec.classList.add('hidden');
                 }
-                navigateTo('premessa');
             });
 
-            // Click su Indietro
-            btnBack.addEventListener('click', () => {
-                if (historyStack.length > 0) {
-                    const previousId = historyStack.pop();
-                    updateBackButtonState();
-                    navigateTo(previousId, true);
-                }
+            // Evidenzia Menu
+            menuItems.forEach(item => {
+                if(item.dataset.target === targetId) item.classList.add('active');
+                else item.classList.remove('active');
             });
+        }
 
-            // Funzione Ricerca
-            function performSearch() {
-                const searchTerm = searchBox.value.trim().toLowerCase();
+        // Funzione per i link rapidi
+        window.customNavigate = function(id) {
+            showSection(id);
+        };
 
-                if (searchTerm === '') {
-                    // Ripristina tutto
-                    sections.forEach(section => {
-                        section.innerHTML = originalContents[section.id];
-                    });
-                    navigateTo(currentSection, true); 
-                    return;
+        // 3. Logica di Ricerca
+        const searchBox = document.getElementById('search-box');
+        
+        searchBox.addEventListener('input', function(e) {
+            const term = e.target.value.trim().toLowerCase();
+            
+            if(term.length < 2) {
+                if(currentSection === 'search') {
+                    const last = historyStack.length > 0 ? historyStack[historyStack.length-1] : 'iniziare';
+                    showSection(last, true);
                 }
-
-                // Cerca in tutte le sezioni
-                sections.forEach(section => {
-                    let originalText = originalContents[section.id];
-                    
-                    if (originalText.toLowerCase().includes(searchTerm)) {
-                        section.classList.remove('hidden');
-                        // Evidenziazione semplice
-                        try {
-                            const regex = new RegExp(searchTerm, 'gi');
-                            const newContent = originalText.replace(regex, match => `<mark>${match}</mark>`);
-                            section.innerHTML = newContent;
-                        } catch(e) {
-                            section.innerHTML = originalText;
-                        }
-                    } else {
-                        section.classList.add('hidden');
-                    }
-                });
+                return;
             }
 
-            searchBox.addEventListener('input', performSearch);
+            // Attiva modalità ricerca
+            currentSection = 'search';
+            guideContainer.style.display = 'none';
+            searchContainer.style.display = 'block';
+            
+            menuItems.forEach(i => i.classList.remove('active'));
 
-            // Avvio
-            // Nasconde tutto tranne Premessa
-            sections.forEach(s => s.classList.add('hidden'));
-            document.getElementById('premessa').classList.remove('hidden');
-            updateBackButtonState();
+            performSmartSearch(term);
         });
+
+        function performSmartSearch(term) {
+            const results = [];
+            
+            sections.forEach(section => {
+                const textContent = section.innerText.toLowerCase();
+                if(textContent.includes(term)) {
+                    let score = 0;
+                    const title = section.querySelector('h1, h2').innerText;
+                    
+                    if(title.toLowerCase().includes(term)) score += 10;
+                    score += (textContent.split(term).length - 1); 
+                    
+                    const snippet = getSnippet(section.innerText, term);
+
+                    results.push({
+                        id: section.id,
+                        title: title,
+                        score: score,
+                        snippet: snippet
+                    });
+                }
+            });
+
+            results.sort((a, b) => b.score - a.score);
+            renderSearchResults(results, term);
+        }
+
+        function getSnippet(text, term) {
+            const index = text.toLowerCase().indexOf(term);
+            const start = Math.max(0, index - 40);
+            const end = Math.min(text.length, index + 60);
+            return "..." + text.substring(start, end) + "...";
+        }
+
+        function renderSearchResults(results, term) {
+            const bestBox = document.getElementById('search-best-match-box');
+            const list = document.getElementById('search-results-list');
+            
+            bestBox.innerHTML = '';
+            list.innerHTML = '';
+
+            if(results.length === 0) {
+                bestBox.innerHTML = '<p style="color:#666; font-style:italic;">Nessun risultato trovato.</p>';
+                return;
+            }
+
+            const best = results[0];
+            const bestDiv = document.createElement('div');
+            bestDiv.className = 'search-best-match';
+            bestDiv.innerHTML = `
+                <h3><i class="ms-Icon ms-Icon--Lightbulb"></i> ${highlightText(best.title, term)}</h3>
+                <div class="search-snippet">${highlightText(best.snippet, term)}</div>
+            `;
+            bestDiv.onclick = () => goToSearchResult(best.id, term);
+            bestBox.appendChild(bestDiv);
+
+            for(let i = 1; i < results.length; i++) {
+                const res = results[i];
+                const li = document.createElement('li');
+                li.className = 'search-result-item';
+                li.innerHTML = `
+                    <span class="search-result-title">${highlightText(res.title, term)}</span>
+                    <span class="search-result-path">Trovato in: ${res.id.toUpperCase()}</span>
+                `;
+                li.onclick = () => goToSearchResult(res.id, term);
+                list.appendChild(li);
+            }
+        }
+
+        function highlightText(text, term) {
+            const regex = new RegExp(`(${term})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+
+        function goToSearchResult(sectionId, term) {
+            showSection(sectionId);
+            
+            const section = document.getElementById(sectionId);
+            const originalHTML = originalContents[sectionId];
+            
+            try {
+               // Evidenziazione nel testo (non persistente dopo navigazione)
+               section.innerHTML = originalHTML.replace(new RegExp(`(?![^<]+>)(${term})`, "gi"), "<mark>$1</mark>");
+            } catch(e) {
+               section.innerHTML = originalHTML;
+            }
+        }
+
+        // 4. Pulsanti Header
+        const btnHome = document.getElementById('btn-home');
+        const btnBack = document.getElementById('btn-back');
+
+        btnHome.addEventListener('click', () => showSection('iniziare'));
+        
+        btnBack.addEventListener('click', () => {
+            if(historyStack.length > 0) {
+                const prev = historyStack.pop();
+                showSection(prev, true);
+                updateBackButton();
+            }
+        });
+
+        function updateBackButton() {
+            if(historyStack.length > 0) btnBack.classList.remove('disabled');
+            else btnBack.classList.add('disabled');
+        }
+
     </script>
 </body>
 </html>
