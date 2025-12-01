@@ -6,222 +6,306 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Guida Timbrature</title>
 
-<!-- Carica la libreria Office.js nel task pane -->
-<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-<script>
-  Office.onReady(() => {
-    // Imposta una sola volta la proprietà nel file per aprire il riquadro con il documento
-    try {
-      Office.context.document.settings.set("Office.AutoShowTaskpaneWithDocument", true);
-      Office.context.document.settings.saveAsync();
-    } catch (e) {
-      console.warn("Impossibile salvare AutoShowTaskpaneWithDocument:", e);
-    }
-  });
-</script>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
 
     <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
 
     <style>
         body {
-            padding: 15px;
+            padding: 0;
+            margin: 0;
+            font-family: "Segoe UI", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", Helvetica, Arial, sans-serif;
+            background-color: #fff;
+            color: #333;
             font-size: 14px;
             line-height: 1.6;
-            background-color: #fafafa;
         }
-        main {
+
+        /* Barra superiore fissa in alto */
+        header {
+            position: sticky;
+            top: 0;
             background-color: #fff;
-            padding: 20px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        h1, h2, h3 {
-            font-weight: 600;
-            color: #333;
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            padding: 10px 15px;
+            z-index: 100;
             border-bottom: 1px solid #eee;
         }
-        h2 {
-            font-size: 20px;
-            margin-top: 30px;
-            margin-bottom: 15px;
+
+        /* Contenitore flessibile per Icone e Ricerca */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px; 
         }
-        h3 {
-            font-size: 16px;
-            margin-top: 20px;
-            margin-bottom: 10px;
+
+        /* Stile delle icone (Indietro e Home) */
+        .nav-icon {
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            display: flex; 
+            align-items: center;
+            justify-content: center;
         }
-        
+        .nav-icon:hover {
+            background-color: #f3f2f1;
+            color: #107c10; /* Verde Excel */
+        }
+        .nav-icon.disabled {
+            color: #e1dfdd;
+            cursor: default;
+        }
+        .nav-icon.disabled:hover {
+            background-color: transparent;
+            color: #e1dfdd;
+        }
+
         /* Search Bar */
         #search-container {
-            margin-bottom: 20px;
+            flex-grow: 1; 
         }
         #search-box {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 6px 10px;
+            border: 1px solid #ccc; 
+            border-bottom: 1px solid #777; 
+            border-radius: 2px;
             font-size: 14px;
+            box-sizing: border-box; 
+            outline: none;
+        }
+        #search-box:focus {
+            border-bottom: 2px solid #107c10; /* Verde Excel quando attivo */
         }
 
-        /* Table of Contents / Menu */
+        /* Area Principale */
+        main {
+            padding: 15px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+        /* Menu di Navigazione */
         #table-of-contents ul {
             list-style-type: none;
             padding: 0;
-            margin: 0;
+            margin: 10px 0 20px 0;
         }
         #table-of-contents li {
-            padding: 10px 12px;
-            border-bottom: 1px solid #eee;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f3f2f1;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.1s;
+            display: flex;
+            align-items: center;
+            color: #333;
         }
+        
+        /* HOVER VERDE (Stile Excel) */
         #table-of-contents li:hover {
-            background-color: #f5f5f5;
+            background-color: #e0f2e0; /* Sfondo verde chiaro */
+            color: #107c10; /* Testo Verde scuro */
+            border-left: 3px solid #107c10; 
+            padding-left: 12px; 
         }
+
+        /* Stato attivo (selezionato) */
         #table-of-contents li.active {
-            background-color: #e6e6e6;
-            font-weight: bold;
+            font-weight: 600;
+            background-color: #f3f2f1;
+        }
+
+        /* Tipografia Contenuti */
+        h1 { font-size: 24px; margin: 0 0 20px 0; font-weight: 600; color: #107c10; } 
+        h2 { font-size: 20px; margin-top: 30px; margin-bottom: 15px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 5px;}
+        h3 { font-size: 16px; margin-top: 20px; margin-bottom: 10px; font-weight: 600;}
+        h4 { font-size: 14px; margin-top: 15px; margin-bottom: 5px; font-weight: 600; color: #555; }
+        
+        .content-section { margin-bottom: 25px; }
+        .hidden { display: none; }
+        
+        /* Formattazione testo */
+        p { margin-bottom: 15px; text-align: justify; }
+        
+        code { background-color: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
+        
+        /* Stile per i box gialli di attenzione */
+        .attention { 
+            background-color: #fff4e0; 
+            border-left: 4px solid #ff9800; 
+            padding: 12px; 
+            margin: 20px 0; 
+            font-size: 13px;
+        }
+
+        /* STILE PER LE TUE ICONE PERSONALIZZATE */
+        .custom-icon {
+            height: 20px;       
+            width: auto;        
+            vertical-align: text-bottom; 
+            margin: 0 4px;      
         }
         
-        .content-section {
-            margin-bottom: 25px;
+        /* Stile generale immagini */
+        img { max-width: 100%; height: auto; }
+
+        /* Stile specifico per gli screenshot del tutorial */
+        .tutorial-img {
+            display: block; /* Va a capo */
+            margin: 15px auto; /* Centrato con spazio verticale */
+            border: 1px solid #ddd; /* Bordino leggero */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Leggera ombra per staccarlo */
+            max-width: 90%; /* Non troppo largo */
         }
-        .hidden {
-            display: none;
-        }
+        /* Rimuoviamo stili extra dalle icone nel testo */
+        img.custom-icon { border: none; margin: 0 4px; box-shadow: none; }
         
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        .attention {
-            background-color: #fff4e0;
-            border-left: 4px solid #ff9800;
-            padding: 10px;
-            margin: 15px 0;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-        mark {
-            background-color: #fffb00;
-            color: black;
-            border-radius: 2px;
-            padding: 1px 2px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
+        mark { background-color: #fffb00; color: black; }
+
+        /* Tabelle */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+        th, td { border: 1px solid #e1dfdd; padding: 10px; text-align: left; }
+        th { background-color: #f3f2f1; font-weight: 600; }
+        
+        /* Liste semplici */
+        ul.simple-list { padding-left: 20px; margin-bottom: 15px; }
+        ul.simple-list li { margin-bottom: 8px; }
+
+        /* Spaziatura nelle liste ordinate del tutorial */
+        ol li { margin-bottom: 15px; }
     </style>
 </head>
 
-<body class="ms-font-m ms-Fabric">
-    <main>
-        <h1>Guida File Timbrature</h1>
+<body class="ms-Fabric">
 
-        <div id="search-container">
-            <input type="text" id="search-box" placeholder="Cerca nella guida...">
+    <header>
+        <div class="top-bar">
+            <i class="ms-Icon ms-Icon--Back nav-icon disabled" id="btn-back" title="Indietro"></i>
+            
+            <i class="ms-Icon ms-Icon--Home nav-icon" id="btn-home" title="Pagina Principale"></i>
+
+            <div id="search-container">
+                <input type="text" id="search-box" placeholder="Cerca...">
+            </div>
         </div>
-        
+    </header>
+
+    <main>
         <nav id="table-of-contents">
             <ul>
-                <li data-target="premessa">1.0 Premessa</li>
-                <li data-target="installazione">2.0 Installazione e primo utilizzo</li>
-                <li data-target="utilizzo">3.0 Utilizzo del file</li>
-                <li data-target="legenda">4.0 Legenda</li>
+                <li data-target="iniziare">Per iniziare</li>
+                <li data-target="installazione">Installazione e primo utilizzo</li>
+                <li data-target="riepilogo">Riepilogo e Dashboard</li>
+                <li data-target="utilizzo">Utilizzo del file</li>
+                <li data-target="legenda">Legenda Codici</li>
             </ul>
         </nav>
 
         <div id="guide-content">
+            
             <div id="premessa" class="content-section">
-                <h2>1.0 Premessa</h2>
-                <p>Questo documento descrive le funzionalità e le modalità di utilizzo del file excel creato per tenere traccia delle timbrature, dei buoni pasto e delle ferie/permessi richiesti e/o utilizzati. [cite: 3]</p>
-                <p>Il file è stato progettato per automatizzare tutti i calcoli necessari per monitorare le attività lavorative durante l'anno, richiedendo all'utente solo l'inserimento degli orari di entrata e uscita. [cite: 4, 5] Tutti i calcoli (esuberi, flessibilità, ferie, permessi, buoni pasto) sono automatizzati secondo le specifiche dell’Università del Piemonte Orientale. [cite: 6]</p>
+                <h1>Guida Timbrature</h1>
+                
+                <p>Benvenuto nella guida ufficiale.</p>
+                
+                <p>Questo documento descrive le funzionalità e le modalità di utilizzo del file excel creato per tenere traccia delle timbrature, dei buoni pasto e delle ferie/permessi richiesti e/o utilizzati.</p> 
+                
+                <p>Il file è stato progettato per automatizzare tutti i calcoli necessari per monitorare le attività lavorative durante l'anno, richiedendo all'utente solo l'inserimento degli orari di entrata e uscita. Tutti i calcoli (esuberi, flessibilità, ferie, permessi, buoni pasto) sono automatizzati secondo le specifiche dell’Università del Piemonte Orientale.</p>
+
+                <div class="attention">
+                    <strong>Nota:</strong> Usa il menu sopra o la barra di ricerca per navigare tra gli argomenti.
+                </div>
+            </div>
+
+            <div id="iniziare" class="content-section hidden">
+                <h2>Per iniziare</h2>
+                <p>Questa sezione contiene le informazioni preliminari.</p>
+                <h3>Prerequisiti</h3>
+                <p>Per utilizzare questo strumento è necessario disporre di Microsoft Excel (versione 2016 o successiva consigliata).</p>
             </div>
 
             <div id="installazione" class="content-section hidden">
-                <h2>2.0 Installazione e primo utilizzo</h2>
-                <p>Per il corretto funzionamento, il file utilizza formule e macro VBA. [cite: 27] È quindi necessario assicurarsi che le macro siano abilitate. [cite: 27]</p>
+                <h2>Installazione e primo utilizzo</h2>
+                <p>Per il corretto funzionamento, il file utilizza formule e macro VBA. È quindi necessario assicurarsi che le macro siano abilitate.</p>
+                
                 <h3>Abilitare le Macro</h3>
                 <ol>
-                    <li>Cliccare con il tasto destro sul file e selezionare <strong>Proprietà</strong>. [cite: 29]</li>
-                    <li>Nella scheda "Generale", se presente in basso la sezione "Sicurezza", spuntare la casella "Annulla blocco". [cite: 30, 31]</li>
-                    <li>Aprire il file e, se compare un avviso di sicurezza, cliccare su <strong>Abilita contenuto</strong>. [cite: 32]</li>
+                    <li>Cliccare con il tasto destro sul file scaricato e selezionare <strong>Proprietà</strong>.</li>
+                    <li>Nella scheda "Generale", in basso nella sezione "Sicurezza", spuntare la casella <strong>"Annulla blocco"</strong> e cliccare OK.
+                        <img src="img/prop_sblocco.png" alt="Schermata Proprietà con opzione Annulla Blocco" class="tutorial-img">
+                    </li>
+                    <li>Aprire il file Excel. Se compare un avviso di sicurezza giallo in alto, cliccare su <strong>Abilita contenuto</strong>.
+                        <img src="img/barra_macro.png" alt="Barra gialla di sicurezza Excel" class="tutorial-img">
+                    </li>
                 </ol>
-                <p class="attention">Questa operazione va eseguita solo la prima volta che si utilizza il file sulla postazione di lavoro o ogni volta che il file viene copiato o rinominato. [cite: 33]</p>
+                
+                <p class="attention">Questa operazione va eseguita solo la prima volta che si utilizza il file sulla postazione di lavoro.</p>
+            </div>
+
+            <div id="riepilogo" class="content-section hidden">
+                <h2>Riepilogo e Dashboard</h2>
                 
                 <h3>Foglio Riepilogo</h3>
-                <p>Il foglio "Riepilogo" è un cruscotto che riassume i dati di tutti i mesi e contiene i pulsanti per gestire i fogli di lavoro mensili. [cite: 39]</p>
-                <ul>
-                    <li><strong>Importa Timbrature:</strong> Permette di importare timbrature da un altro file Excel per evitare di reinserirle manualmente. [cite: 42] ATTENZIONE: I dati nel file corrente verranno sovrascritti. [cite: 44]</li>
-                    <li><strong>Data Odierna:</strong> Porta il cursore alla data odierna. [cite: 54]</li>
-                    <li><strong>Crea Foglio Mese:</strong> Crea un nuovo foglio per il mese specificato. [cite: 61]</li>
-                    <li><strong>Cancella Foglio Mese:</strong> Elimina il foglio di un mese, aggiornando le formule. [cite: 67]</li>
-                    <li><strong>Crea Nuovo Anno:</strong> Crea un nuovo file per l'anno specificato. [cite: 70]</li>
-                </ul>
+                <p>Il foglio "Riepilogo" è un cruscotto che riassume i dati di tutti i mesi. Da questo foglio di lavoro è possibile avere sotto controllo i totali di tutti i contatori delle ore lavorative (Flessibilità positiva/Negativa, Ferie, buoni pasto, etc.).</p>
+                
+                <p>Oltre alla consultazione dei totali, questo foglio permette la gestione dei fogli mensili tramite appositi pulsanti (Creazione mese, Cancellazione mese, Nuovo anno).</p>
+
+                <h4>Accesso e Navigazione</h4>
+                <p>È possibile accedere al Riepilogo selezionando la linguetta in basso o cliccando sul pulsante <strong><img src="img/Riepilogo.png" class="custom-icon" alt="Icona Riepilogo"> Riepilogo</strong> nel menu <strong>TIMBRATURE</strong>.</p>
+                
+                <div class="attention">
+                    <strong>Funzionalità del pulsante <img src="img/Riepilogo.png" class="custom-icon" alt="Icona Riepilogo"> Riepilogo:</strong><br>
+                    Il pulsante nel menu TIMBRATURE ha una doppia funzione: cliccandolo si viene portati al foglio Riepilogo; cliccandolo nuovamente, si viene riportati automaticamente al mese su cui si stava lavorando prima del click.
+                </div>
+
+                <h3>Dashboard</h3>
+                <p>La Dashboard offre una rappresentazione visuale dell'andamento annuale tramite grafici intuitivi. È accessibile cliccando sul pulsante <strong><img src="img/Dashboard.png" class="custom-icon" alt="Icona Dashboard"> Dashboard</strong> nel menu <strong>TIMBRATURE</strong>.</p>
+                
+                <div class="attention">
+                    <strong>Navigazione e Chiusura Automatica:</strong><br>
+                    Il foglio Dashboard ha un comportamento dinamico per mantenere l'interfaccia pulita:
+                    <ul>
+                        <li><strong>Chiusura automatica:</strong> Se si clicca su un qualsiasi altro foglio di lavoro (es. Gennaio), la Dashboard viene nascosta automaticamente.</li>
+                        <li><strong>Tasto "Torna indietro":</strong> Cliccando nuovamente sul pulsante <strong><img src="img/Dashboard.png" class="custom-icon" alt="Icona Dashboard"> Dashboard</strong> nel menu, il foglio verrà nascosto e si verrà riportati al mese in cui si stava lavorando.</li>
+                    </ul>
+                </div>
             </div>
 
             <div id="utilizzo" class="content-section hidden">
-                <h2>3.0 Utilizzo del file</h2>
-                <p>È sufficiente compilare le celle di entrata e uscita nel formato <code>hh:mm</code>. [cite: 79] Il file calcola automaticamente le ore lavorate, l'eventuale esubero (FLEP) o debito (FLEN) e assegna il buono pasto se si superano le 6:12 ore di lavoro. [cite: 85, 86, 88]</p>
+                <h2>Utilizzo del file</h2>
+                <p>È sufficiente compilare le celle di entrata e uscita nel formato <code>hh:mm</code>.</p>
+                <p>Il file calcola automaticamente le ore lavorate, l'eventuale esubero (FLEP) o debito (FLEN) e assegna il buono pasto se si superano le <strong>6 ore e 12 minuti</strong> di lavoro.</p>
                 
-                <h3>MOPER</h3>
-                <p>L'orario di lavoro ha un'entrata flessibile tra le 8:00 e le 9:00. [cite: 90] Entrando dopo le 9:00, il ritardo viene segnato in rosso e aggiunto alla colonna MOPER. [cite: 91]</p>
-
-                <h3>Ferie/permessi</h3>
-                <p>Per inserire ferie o permessi, usare i seguenti codici nella prima cella di entrata (<code>Entrata</code>):</p>
-                <ul>
-                    <li><strong>Ferie:</strong> Inserire <code>F</code>. [cite: 99]</li>
-                    <li><strong>Permessi (P18H):</strong> Inserire <code>P18H</code>. [cite: 100]</li>
-                    <li><strong>Festività:</strong> Inserire <code>Fest</code>. [cite: 104]</li>
-                    <li><strong>Malattia:</strong> Inserire <code>M</code>. [cite: 107]</li>
-                    <li><strong>Recupero ore:</strong> Inserire <code>R</code>. [cite: 110]</li>
-                </ul>
+                <h3>MOPER (Motivi Personali)</h3>
+                <p>L'orario di lavoro ha un'entrata flessibile tra le 8:00 e le 9:00. Entrando dopo le 9:00, il ritardo viene segnato in rosso e aggiunto alla colonna MOPER.</p>
             </div>
             
             <div id="legenda" class="content-section hidden">
-                <h2>4.0 Legenda</h2>
-                
-                <h3>Inserimenti</h3>
+                <h2>Legenda e Codici</h2>
+                <p>Per inserire ferie o permessi, usare i seguenti codici nella prima cella di entrata:</p>
                 <table>
                     <thead><tr><th>Codice</th><th>Descrizione</th></tr></thead>
                     <tbody>
-                        <tr><td>F</td><td>Ferie</td></tr> [cite: 113]
-                        <tr><td>Fest</td><td>Festività</td></tr> [cite: 113]
-                        <tr><td>P18H</td><td>Permessi (18h/anno)</td></tr> [cite: 113]
-                        <tr><td>M</td><td>Malattia</td></tr> [cite: 113]
-                        <tr><td>R</td><td>Recupero ore da Esubero</td></tr> [cite: 113]
+                        <tr><td><strong>F</strong></td><td>Ferie</td></tr>
+                        <tr><td><strong>Fest</strong></td><td>Festività</td></tr>
+                        <tr><td><strong>P18H</strong></td><td>Permessi (18h/anno)</td></tr>
+                        <tr><td><strong>M</strong></td><td>Malattia</td></tr>
+                        <tr><td><strong>R</strong></td><td>Recupero ore da Esubero</td></tr>
                     </tbody>
                 </table>
-
+                
                 <h3>Voci di Calcolo</h3>
                 <table>
-                     <thead><tr><th>Voce</th><th>Descrizione</th></tr></thead>
+                     <thead><tr><th>Voce</th><th>Significato</th></tr></thead>
                      <tbody>
-                        <tr><td>MOPER</td><td>Motivi personali (entrata/uscita fuori orario)</td></tr> [cite: 114]
-                        <tr><td>Straordinario</td><td>Esubero ore superiore a 1 ora (ECCE)</td></tr> [cite: 116]
-                        <tr><td>Esubero</td><td>Esubero ore inferiore a 1 ora (FLEP&lt;1)</td></tr> [cite: 116]
-                        <tr><td>Debito</td><td>Debito ore (meno di 7:12) (FLEN)</td></tr> [cite: 116]
+                        <tr><td><strong>MOPER</strong></td><td>Motivi personali (fuori orario)</td></tr>
+                        <tr><td><strong>Straordinario</strong></td><td>Esubero ore superiore a 1 ora</td></tr>
+                        <tr><td><strong>Esubero</strong></td><td>Esubero ore inferiore a 1 ora</td></tr>
+                        <tr><td><strong>Debito</strong></td><td>Debito ore (meno di 7:12)</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -231,85 +315,134 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
             const searchBox = document.getElementById('search-box');
-            const guideContent = document.getElementById('guide-content');
-            const originalContents = {}; // Oggetto per salvare i contenuti originali
+            const btnHome = document.getElementById('btn-home');
+            const btnBack = document.getElementById('btn-back');
+            
+            // Stack per la cronologia del tasto Indietro
+            let historyStack = [];
+            let currentSection = 'premessa';
+
+            const originalContents = {}; 
             const sections = document.querySelectorAll('.content-section');
             const menuItems = document.querySelectorAll('#table-of-contents li');
 
-            // Salva il contenuto originale di ogni sezione
+            // 1. Salva contenuti originali per il ripristino post-ricerca
             sections.forEach(section => {
                 originalContents[section.id] = section.innerHTML;
             });
 
-            // Funzione per mostrare una sezione e nascondere le altre
-            function showSection(targetId) {
+            // Funzione principale di navigazione
+            function navigateTo(targetId, isBackAction = false) {
+                // Se non stiamo tornando indietro e cambiamo sezione, salva nella storia
+                if (!isBackAction && currentSection !== targetId) {
+                    historyStack.push(currentSection);
+                    updateBackButtonState();
+                }
+
+                currentSection = targetId;
+
+                // Mostra/Nascondi sezioni
                 sections.forEach(section => {
                     if (section.id === targetId) {
                         section.classList.remove('hidden');
+                        window.scrollTo(0,0); // Torna su quando cambi pagina
                     } else {
                         section.classList.add('hidden');
                     }
                 });
 
+                // Evidenzia voce menu (se esiste nel menu)
+                let foundInMenu = false;
                 menuItems.forEach(item => {
                     if (item.dataset.target === targetId) {
                         item.classList.add('active');
+                        foundInMenu = true;
                     } else {
                         item.classList.remove('active');
                     }
                 });
             }
 
-            // Aggiungi l'evento click ai menu
+            // Aggiorna stato visivo del tasto Indietro (grigio se vuoto)
+            function updateBackButtonState() {
+                if (historyStack.length > 0) {
+                    btnBack.classList.remove('disabled');
+                } else {
+                    btnBack.classList.add('disabled');
+                }
+            }
+
+            // --- EVENTI ---
+
+            // Click sul Menu
             menuItems.forEach(item => {
                 item.addEventListener('click', () => {
-                    showSection(item.dataset.target);
-                    // Pulisce la ricerca quando si cambia sezione
                     if (searchBox.value !== '') {
                         searchBox.value = '';
-                        performSearch();
+                        performSearch(); // Pulisce ricerca
                     }
+                    navigateTo(item.dataset.target);
                 });
             });
 
-            // Funzione per la ricerca
+            // Click su Home
+            btnHome.addEventListener('click', () => {
+                if (searchBox.value !== '') {
+                    searchBox.value = '';
+                    performSearch();
+                }
+                navigateTo('premessa');
+            });
+
+            // Click su Indietro
+            btnBack.addEventListener('click', () => {
+                if (historyStack.length > 0) {
+                    const previousId = historyStack.pop();
+                    updateBackButtonState();
+                    navigateTo(previousId, true);
+                }
+            });
+
+            // Funzione Ricerca
             function performSearch() {
                 const searchTerm = searchBox.value.trim().toLowerCase();
 
                 if (searchTerm === '') {
-                    // Ripristina il contenuto e nascondi le sezioni non attive
+                    // Ripristina tutto
                     sections.forEach(section => {
                         section.innerHTML = originalContents[section.id];
                     });
-                    // Mostra la prima sezione di default se la ricerca è vuota
-                    showSection(menuItems[0].dataset.target); 
+                    navigateTo(currentSection, true); 
                     return;
                 }
 
-                // Se si sta cercando, mostra tutte le sezioni
+                // Cerca in tutte le sezioni
                 sections.forEach(section => {
-                    section.classList.remove('hidden');
-                    // Ripristina prima di evidenziare
-                    let originalSectionContent = originalContents[section.id];
+                    let originalText = originalContents[section.id];
                     
-                    try {
-                        const regex = new RegExp(searchTerm, 'gi');
-                        const newContent = originalSectionContent.replace(regex, (match) => `<mark>${match}</mark>`);
-                        section.innerHTML = newContent;
-                    } catch (e) {
-                        // Gestisce errori di regex per caratteri speciali
-                        section.innerHTML = originalSectionContent;
+                    if (originalText.toLowerCase().includes(searchTerm)) {
+                        section.classList.remove('hidden');
+                        // Evidenziazione semplice
+                        try {
+                            const regex = new RegExp(searchTerm, 'gi');
+                            const newContent = originalText.replace(regex, match => `<mark>${match}</mark>`);
+                            section.innerHTML = newContent;
+                        } catch(e) {
+                            section.innerHTML = originalText;
+                        }
+                    } else {
+                        section.classList.add('hidden');
                     }
                 });
-
-                // Rimuovi lo stato attivo da tutti i menu
-                menuItems.forEach(item => item.classList.remove('active'));
             }
 
             searchBox.addEventListener('input', performSearch);
 
-            // Mostra la prima sezione all'avvio
-            showSection('premessa');
+            // Avvio
+            // Nasconde tutto tranne Premessa
+            sections.forEach(s => s.classList.add('hidden'));
+            document.getElementById('premessa').classList.remove('hidden');
+            updateBackButtonState();
         });
     </script>
 </body>
