@@ -109,7 +109,6 @@
             display: flex; align-items: center; transition: background 0.2s;
         }
         
-        /* --- MODIFICA: HOVER VERDE PER LISTA RAPIDA --- */
         .quick-links li:hover { 
             background-color: #e0f2e0; /* Verde chiaro sfondo */
             color: #107c10; /* Verde scuro testo */
@@ -117,7 +116,6 @@
         .quick-links li:hover span {
             color: #107c10; /* Forza il colore verde anche sul testo */
         }
-        /* ----------------------------------------------- */
 
         .quick-links li i { margin-right: 12px; color: #107c10; font-size: 16px; }
         .quick-links li span { font-weight: 500; color: #323130; }
@@ -196,7 +194,7 @@
                         </li>
                         <li onclick="customNavigate('legenda')">
                             <i class="ms-Icon ms-Icon--Dictionary"></i>
-                            <span>Codici per Ferie e Permessi (F, M, Fest)</span>
+                            <span>Codici per Ferie e Permessi (F, F1/2, Fest)</span>
                         </li>
                         <li onclick="customNavigate('utilizzo')">
                             <i class="ms-Icon ms-Icon--Clock"></i>
@@ -259,15 +257,18 @@
 
                 <div id="legenda" class="content-section hidden">
                     <h2>Legenda Codici</h2>
-                    <p>Per giustificativi, usa questi codici nella colonna "Entrata":</p>
+                    <p>Per inserire ferie, permessi o malattie, digita il codice corrispondente nella prima cella di <strong>Entrata</strong>:</p>
                     <table>
-                        <thead><tr><th>Codice</th><th>Significato</th></tr></thead>
+                        <thead><tr><th style="width: 120px;">Codice</th><th>Descrizione</th></tr></thead>
                         <tbody>
-                            <tr><td><strong>F</strong></td><td>Ferie</td></tr>
-                            <tr><td><strong>Fest</strong></td><td>Festività</td></tr>
-                            <tr><td><strong>P18H</strong></td><td>Permesso orario</td></tr>
+                            <tr><td><strong>F</strong></td><td>Ferie (Giornata intera)</td></tr>
+                            <tr><td><strong>F1/2</strong></td><td>Mezza giornata di Ferie (3:36 h)</td></tr>
+                            <tr><td><strong>Fest</strong></td><td>Giorno di Festività Nazionale/Comunale</td></tr>
+                            <tr><td><strong>R</strong></td><td>Recupero ore da Esubero/Straordinario (7:12 h)</td></tr>
+                            <tr><td><strong>P18H (P02)</strong></td><td>Permessi retribuiti (max. 18 h/anno)</td></tr>
+                            <tr><td><strong>Vismed (P05)</strong></td><td>Visite Mediche Personali</td></tr>
+                            <tr><td><strong>GRAINF (P03)</strong></td><td>Visite mediche Famigliari</td></tr>
                             <tr><td><strong>M</strong></td><td>Malattia</td></tr>
-                            <tr><td><strong>R</strong></td><td>Recupero ore</td></tr>
                         </tbody>
                     </table>
                 </div>
