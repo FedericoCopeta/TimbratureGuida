@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -10,478 +10,437 @@
     <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
 
     <style>
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: "Segoe UI", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", Helvetica, Arial, sans-serif;
-            background-color: #faf9f8; 
-            color: #333;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
+        body { padding: 0; margin: 0; font-family: "Segoe UI", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", Helvetica, Arial, sans-serif; background-color: #faf9f8; color: #333; font-size: 14px; line-height: 1.6; }
+        
         /* HEADER */
-        header {
-            position: sticky;
-            top: 0;
-            background-color: #fff;
-            padding: 10px 15px;
-            z-index: 100;
-            border-bottom: 1px solid #edebe9;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
+        header { position: sticky; top: 0; background-color: #fff; padding: 10px 15px; z-index: 100; border-bottom: 1px solid #edebe9; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .top-bar { display: flex; align-items: center; gap: 10px; }
-
-        .nav-icon {
-            font-size: 18px; color: #605e5c; cursor: pointer; padding: 6px;
-            border-radius: 4px; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
-        }
+        .nav-icon { font-size: 18px; color: #605e5c; cursor: pointer; padding: 6px; border-radius: 4px; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
         .nav-icon:hover { background-color: #f3f2f1; color: #107c10; }
         .nav-icon.disabled { color: #c8c6c4; cursor: default; }
         .nav-icon.disabled:hover { background-color: transparent; }
-
         #search-container { flex-grow: 1; position: relative; }
-        #search-box {
-            width: 100%; padding: 7px 10px; border: 1px solid #8a8886;
-            border-radius: 2px; font-size: 14px; outline: none; transition: border 0.2s;
-        }
+        #search-box { width: 100%; padding: 7px 10px; border: 1px solid #8a8886; border-radius: 2px; font-size: 14px; outline: none; transition: border 0.2s; }
         #search-box:focus { border-color: #107c10; border-bottom-width: 2px; }
 
         /* MAIN AREA */
         main { padding: 0; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; height: calc(100vh - 55px); }
-
-        /* MENU NAVIGAZIONE */
         #table-of-contents { background: #fff; border-bottom: 1px solid #edebe9; }
         #table-of-contents ul { list-style-type: none; padding: 0; margin: 0; display: flex; overflow-x: auto; }
-        
-        #table-of-contents li {
-            padding: 12px 15px; 
-            cursor: pointer; 
-            white-space: nowrap; 
-            font-size: 13px; 
-            color: #605e5c;
-            border-bottom: 3px solid transparent; 
-            transition: all 0.2s;
-        }
-
-        /* HOVER VERDE MENU */
-        #table-of-contents li:hover { 
-            background-color: #e0f2e0; /* Sfondo verdino */
-            color: #107c10; /* Testo verde */
-            border-bottom: 3px solid #107c10; /* Bordo verde */
-        }
-
-        #table-of-contents li.active { 
-            font-weight: 600; 
-            color: #107c10; 
-            border-bottom: 3px solid #107c10; 
-            background-color: #fff;
-        }
+        #table-of-contents li { padding: 12px 15px; cursor: pointer; white-space: nowrap; font-size: 13px; }
+        #table-of-contents li:hover { background-color: #e0f2e0; color: #107c10; border-bottom: 3px solid #107c10; }
+        #table-of-contents li.active { font-weight: 600; color: #107c10; border-bottom: 3px solid #107c10; background-color: #fff; }
 
         /* CONTENT AREA */
         #scroll-container { padding: 20px; overflow-y: auto; flex-grow: 1; background-color: #fff; }
-
-        /* Typography & Elements */
-        h1 { font-size: 24px; margin: 0 0 20px 0; font-weight: 600; color: #107c10; } 
+        h1 { font-size: 24px; margin: 0 0 20px 0; font-weight: 600; color: #107c10; }
         h2 { font-size: 18px; margin-top: 25px; margin-bottom: 10px; color: #323130; border-bottom: 1px solid #edebe9; padding-bottom: 5px; font-weight: 600; }
         h3 { font-size: 15px; margin-top: 15px; margin-bottom: 5px; font-weight: 600; color: #323130; }
         h4 { font-size: 13px; margin-top: 10px; margin-bottom: 5px; font-weight: 700; color: #605e5c; text-transform: uppercase; letter-spacing: 0.5px;}
-        
         p { margin-bottom: 15px; text-align: justify; color: #323130; }
         code { background-color: #f3f2f1; padding: 2px 5px; border-radius: 3px; font-family: monospace; color: #a4262c; }
-        
         .attention { background-color: #fff4ce; border-left: 4px solid #ffaa44; padding: 12px; margin: 20px 0; font-size: 13px; border-radius: 2px; }
-
-        /* Images */
+        .success-banner { background-color: #e0f2e0; border-left: 4px solid #107c10; padding: 12px; margin: 20px 0; font-size: 13px; border-radius: 2px; }
+        
         .custom-icon { height: 18px; width: auto; vertical-align: text-bottom; margin: 0 2px; }
         .tutorial-img { display: block; margin: 15px auto; border: 1px solid #edebe9; box-shadow: 0 4px 8px rgba(0,0,0,0.05); max-width: 95%; border-radius: 4px; }
-        
-        /* Tables */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
         th, td { border: 1px solid #edebe9; padding: 10px; text-align: left; }
         th { background-color: #f3f2f1; font-weight: 600; }
 
-        /* LISTA LINK RAPIDI (Argomenti Consigliati) */
+        /* QUICK LINKS */
         .quick-links { list-style: none; padding: 0; margin-top: 10px; border-top: 1px solid #edebe9; }
-        .quick-links li {
-            padding: 12px 10px; border-bottom: 1px solid #edebe9; cursor: pointer; 
-            display: flex; align-items: center; transition: background 0.2s;
-        }
-        
-        .quick-links li:hover { 
-            background-color: #e0f2e0; /* Verde chiaro sfondo */
-            color: #107c10; /* Verde scuro testo */
-        }
-        .quick-links li:hover span {
-            color: #107c10; /* Forza il colore verde anche sul testo */
-        }
-
+        .quick-links li { padding: 12px 10px; border-bottom: 1px solid #edebe9; cursor: pointer; display: flex; align-items: center; transition: background 0.2s; }
+        .quick-links li:hover { background-color: #e0f2e0; color: #107c10; }
+        .quick-links li:hover span { color: #107c10; }
         .quick-links li i { margin-right: 12px; color: #107c10; font-size: 16px; }
         .quick-links li span { font-weight: 500; color: #323130; }
 
-        /* INTERFACCIA RICERCA */
+        /* RICERCA */
         #search-output-container { display: none; padding: 0; }
-        
-        .search-best-match {
-            background: #fff; border: 1px solid #edebe9; border-radius: 4px; 
-            padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            cursor: pointer; transition: transform 0.1s;
-        }
+        .search-best-match { border: 1px solid #edebe9; border-left: 4px solid #107c10; background-color: #fff; padding: 15px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.1s; }
         .search-best-match:hover { border-color: #107c10; }
         .search-best-match h3 { margin-top: 0; color: #107c10; font-size: 16px; display: flex; align-items: center; }
         .search-best-match h3 i { margin-right: 8px; }
         .search-snippet { font-size: 13px; color: #605e5c; margin-top: 5px; }
-
         .search-results-list { list-style: none; padding: 0; }
-        .search-result-item {
-            padding: 10px; border-bottom: 1px solid #f3f2f1; cursor: pointer;
-        }
+        .search-result-item { padding: 10px; border-bottom: 1px solid #f3f2f1; cursor: pointer; }
         .search-result-item:hover { background-color: #faf9f8; }
         .search-result-title { font-weight: 600; color: #323130; display: block; }
         .search-result-path { font-size: 11px; color: #605e5c; text-transform: uppercase; margin-top: 2px;}
-
         mark { background-color: #fff100; color: #000; padding: 0 2px; }
         .hidden { display: none !important; }
-
     </style>
 </head>
 
 <body class="ms-Fabric">
 
-    <header>
-        <div class="top-bar">
-            <i class="ms-Icon ms-Icon--Back nav-icon disabled" id="btn-back" title="Indietro"></i>
-            <i class="ms-Icon ms-Icon--Home nav-icon" id="btn-home" title="Pagina Principale"></i>
-            <div id="search-container">
-                <input type="text" id="search-box" placeholder="Cerca...">
-            </div>
+<header>
+    <div class="top-bar">
+        <i class="ms-Icon ms-Icon--Back nav-icon disabled" id="btn-back" title="Indietro"></i>
+        <i class="ms-Icon ms-Icon--Home nav-icon" id="btn-home" title="Pagina Principale"></i>
+        <div id="search-container">
+            <input type="text" id="search-box" placeholder="Cerca 'PDF', 'Codici speciali', 'Nuovo Mese'...">
         </div>
-    </header>
+    </div>
+</header>
 
-    <main>
-        <nav id="table-of-contents">
-            <ul>
-                <li data-target="iniziare">Per iniziare</li>
-                <li data-target="installazione">Installazione</li>
-                <li data-target="riepilogo">Riepilogo</li>
-                <li data-target="utilizzo">Utilizzo</li>
-                <li data-target="legenda">Legenda</li>
-            </ul>
-        </nav>
+<main>
+    <nav id="table-of-contents">
+        <ul>
+            <li data-target="iniziare">Per iniziare</li>
+            <li data-target="installazione">Installazione</li>
+            <li data-target="menu-ribbon">Menu TIMBRATURE</li> <!-- AGGIORNATO -->
+            <li data-target="utilizzo">Utilizzo</li>
+            <li data-target="legenda">Legenda</li>
+        </ul>
+    </nav>
 
-        <div id="scroll-container">
-            
-            <div id="guide-content">
+    <div id="scroll-container">
+        
+        <div id="guide-content">
+
+            <!-- SEZIONE 1: PER INIZIARE -->
+            <div id="iniziare" class="content-section">
+                <h1>Benvenuto</h1>
                 
-                <div id="iniziare" class="content-section">
-                    <h1>Benvenuto</h1>
-                    <p>
-                        Il file <strong>Timbrature UPO</strong> è uno strumento automatizzato progettato per semplificare la gestione mensile dell'orario lavorativo. 
-                        Ti permette di registrare entrate e uscite ottenendo in tempo reale il calcolo di flessibilità, buoni pasto e residuo ferie, in conformità con le normative dell'Ateneo.
-                    </p>
-                    <p>In questa guida troverai tutte le istruzioni per configurare il file e risolvere eventuali dubbi comuni.</p>
-
-                    <h2>Argomenti consigliati</h2>
-                    <ul class="quick-links">
-                        <li onclick="customNavigate('installazione')">
-                            <i class="ms-Icon ms-Icon--Download"></i>
-                            <span>Abilitare le macro al primo avvio</span>
-                        </li>
-                        <li onclick="customNavigate('riepilogo')">
-                            <i class="ms-Icon ms-Icon--Table"></i>
-                            <span>Capire il foglio Riepilogo</span>
-                        </li>
-                        <li onclick="customNavigate('legenda')">
-                            <i class="ms-Icon ms-Icon--Dictionary"></i>
-                            <span>Codici per Ferie e Permessi (F, F1/2, Fest)</span>
-                        </li>
-                        <li onclick="customNavigate('utilizzo')">
-                            <i class="ms-Icon ms-Icon--Clock"></i>
-                            <span>Come gestire i ritardi (MOPER)</span>
-                        </li>
-                    </ul>
+                <div class="success-banner">
+                    <strong>Novità:</strong> Gestisci tutto dal nuovo menu <strong>"TIMBRATURE"</strong> in alto su Excel! Scopri le nuove funzioni nella sezione dedicata.
                 </div>
 
-                <div id="installazione" class="content-section hidden">
-                    <h2>Installazione e primo utilizzo</h2>
-                    <p>Il file utilizza automazioni avanzate (VBA). Per questo motivo, Windows e Excel potrebbero richiedere un'autorizzazione di sicurezza al primo avvio.</p>
-                    
-                    <h3>1. Sblocco del file (Windows)</h3>
-                    <p>Prima di aprire il file per la prima volta:</p>
-                    <ol>
-                        <li>Tasto destro sul file scaricato > <strong>Proprietà</strong>.</li>
-                        <li>In basso a destra, spunta la casella <strong>"Annulla blocco"</strong> e premi OK.</li>
-                    </ol>
-                    <img src="img/prop_sblocco.png" alt="Sblocco Proprietà" class="tutorial-img">
+                <p>Il file <strong>Timbrature UPO</strong> è uno strumento automatizzato progettato per semplificare la gestione mensile dell'orario lavorativo. Ti permette di registrare entrate e uscite ottenendo in tempo reale il calcolo di flessibilità, buoni pasto e residuo ferie, in conformità con le normative dell'Ateneo.</p>
+                <p>In questa guida troverai tutte le istruzioni per configurare il file e risolvere eventuali dubbi comuni.</p>
 
-                    <h3>2. Abilitazione contenuto (Excel)</h3>
-                    <p>All'apertura del file, noterai una barra gialla sotto il menu.</p>
-                    <ol>
-                        <li>Clicca sul pulsante <strong>Abilita contenuto</strong> per attivare i calcoli automatici.</li>
-                    </ol>
-                    <img src="img/barra_macro.png" alt="Barra Gialla Macro" class="tutorial-img">
-                </div>
-
-                <div id="riepilogo" class="content-section hidden">
-                    <h2>Riepilogo e Dashboard</h2>
-                    <p>Il cuore del sistema è il foglio Riepilogo, che agisce come centro di controllo per tutto l'anno lavorativo.</p>
-
-                    <h3>Foglio Riepilogo</h3>
-                    <p>Da qui puoi creare i nuovi mesi, cancellarli o archiviare l'anno. Accedi tramite la linguetta in basso o il menu:</p>
-                    <div class="attention">
-                        <strong><img src="img/Riepilogo.png" class="custom-icon"> Pulsante Riepilogo:</strong><br>
-                        Clicca una volta per andare al Riepilogo. Clicca di nuovo per tornare al mese su cui stavi lavorando (funzione "Torna indietro").
-                    </div>
-
-                    <h3>Dashboard Grafica</h3>
-                    <p>Per una visione d'insieme dell'andamento annuale (Ferie godute, Saldo ore, etc.):</p>
-                    <div class="attention">
-                        <strong><img src="img/Dashboard.png" class="custom-icon"> Pulsante Dashboard:</strong><br>
-                        Apre i grafici a schermo intero. La Dashboard si chiude automaticamente se cambi foglio o se riclicchi sul pulsante.
-                    </div>
-                </div>
-
-                <div id="utilizzo" class="content-section hidden">
-                    <h2>Utilizzo Quotidiano</h2>
-                    <p>Il file è progettato per richiedere il minimo sforzo. Devi inserire solo:</p>
-                    <ul>
-                        <li>Orario di Entrata (es. <code>08:05</code>)</li>
-                        <li>Orario di Uscita (es. <code>14:00</code>)</li>
-                    </ul>
-                    <p>Il calcolo di <strong>FLEP</strong> (Esubero), <strong>FLEN</strong> (Debito) e <strong>Buoni Pasto</strong> (dopo 6h 12m) è immediato.</p>
-                    
-                    <h3>Gestione Ritardi (MOPER)</h3>
-                    <p>La fascia di flessibilità è 08:00 - 09:00. Se timbri dopo le 09:00, il sistema segnerà il ritardo in rosso e lo conteggerà automaticamente nella colonna <strong>MOPER</strong> (Motivi Personali).</p>
-                </div>
-
-                <div id="legenda" class="content-section hidden">
-                    <h2>Legenda Codici</h2>
-                    <p>Per inserire ferie, permessi o malattie, digita il codice corrispondente nella prima cella di <strong>Entrata</strong>:</p>
-                    <table>
-                        <thead><tr><th style="width: 120px;">Codice</th><th>Descrizione</th></tr></thead>
-                        <tbody>
-                            <tr><td><strong>F</strong></td><td>Ferie (Giornata intera)</td></tr>
-                            <tr><td><strong>F1/2</strong></td><td>Mezza giornata di Ferie (3:36 h)</td></tr>
-                            <tr><td><strong>Fest</strong></td><td>Giorno di Festività Nazionale/Comunale</td></tr>
-                            <tr><td><strong>R</strong></td><td>Recupero ore da Esubero/Straordinario (7:12 h)</td></tr>
-                            <tr><td><strong>P18H (P02)</strong></td><td>Permessi retribuiti (max. 18 h/anno)</td></tr>
-                            <tr><td><strong>Vismed (P05)</strong></td><td>Visite Mediche Personali (max. 18 h/anno)</td></tr>
-                            <tr><td><strong>GRAINF (P03)</strong></td><td>Visite mediche Famigliari (max. 21:36 h/anno)</td></tr>
-                            <tr><td><strong>M</strong></td><td>Malattia</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <h2>Argomenti consigliati</h2>
+                <ul class="quick-links">
+                    <li onclick="customNavigate('menu-ribbon')">
+                        <i class="ms-Icon ms-Icon--Ribbon"></i>
+                        <span>Scopri il nuovo Menu in alto (Ribbon)</span>
+                    </li>
+                    <li onclick="customNavigate('legenda')">
+                        <i class="ms-Icon ms-Icon--Dictionary"></i>
+                        <span>Nuovi Codici Speciali (VISMED, L104, ecc.)</span>
+                    </li>
+                    <li onclick="customNavigate('utilizzo')">
+                        <i class="ms-Icon ms-Icon--Clock"></i>
+                        <span>Come gestire i ritardi (MOPER)</span>
+                    </li>
+                </ul>
             </div>
 
-            <div id="search-output-container">
-                <h4 style="margin-bottom: 15px;">Miglior risultato</h4>
-                <div id="search-best-match-box"></div>
+            <!-- SEZIONE 2: INSTALLAZIONE -->
+            <div id="installazione" class="content-section hidden">
+                <h2>Installazione e primo utilizzo</h2>
+                <p>Il file utilizza automazioni avanzate (VBA). Per questo motivo, Windows e Excel potrebbero richiedere un'autorizzazione di sicurezza al primo avvio.</p>
                 
-                <h4 style="margin-top: 25px; margin-bottom: 10px;">Altri risultati</h4>
-                <ul id="search-results-list" class="search-results-list"></ul>
+                <h3>1. Sblocco del file (Windows)</h3>
+                <p>Prima di aprire il file per la prima volta:</p>
+                <ol>
+                    <li>Tasto destro sul file scaricato > <strong>Proprietà</strong>.</li>
+                    <li>In basso a destra, spunta la casella <strong>"Annulla blocco"</strong> e premi OK.</li>
+                </ol>
+                <img src="img/prop_sblocco.png" alt="Sblocco Proprietà" class="tutorial-img" onerror="this.style.display='none'">
+
+                <h3>2. Abilitazione contenuto (Excel)</h3>
+                <p>All'apertura del file, noterai una barra gialla sotto il menu.</p>
+                <ol>
+                    <li>Clicca sul pulsante <strong>Abilita contenuto</strong> per attivare i calcoli automatici.</li>
+                </ol>
+                <img src="img/barra_macro.png" alt="Barra Gialla Macro" class="tutorial-img" onerror="this.style.display='none'">
+            </div>
+
+            <!-- SEZIONE 3: MENU RIBBON (Sostituisce il vecchio "Riepilogo") -->
+            <div id="menu-ribbon" class="content-section hidden">
+                <h2>Il Menu TIMBRATURE (Barra multifunzione)</h2>
+                <p>Tutte le operazioni principali sono ora gestibili dal pannello di controllo unificato situato nella parte superiore di Excel.</p>
+
+                <h3>🛠️ Tools (Gestione File)</h3>
+                <ul>
+                    <li><strong>Crea Nuovo Anno:</strong> Genera un nuovo file per l'anno successivo mantenendo intatte le impostazioni.</li>
+                    <li><strong>Crea Nuovo Mese:</strong> Aggiunge il mese in ordine cronologico. <br><em>Nota: L'inserimento o l'eliminazione manuale dei fogli tramite tab Excel è ora bloccata per prevenire danni alle formule. Usa sempre questo pulsante!</em></li>
+                    <li><strong>Cancella Mese:</strong> Rimuove in modo sicuro l'ultimo mese, ripristinando il sistema.</li>
+                </ul>
+
+                <h3>📍 Posizione (Navigazione)</h3>
+                <ul>
+                    <li><strong>Giorno Precedente:</strong> Ti riporta istantaneamente all'ultima riga lavorata del giorno prima.</li>
+                    <li><strong>Vai a Oggi:</strong> Cerca il foglio corrente e seleziona la riga di oggi in automatico.</li>
+                </ul>
+
+                <h3>⏱️ Utility (Calcoli e Dati)</h3>
+                <ul>
+                    <li><strong>Calcola Uscita:</strong> Calcola l'orario ideale di uscita aggiungendo 6 ore e 12 minuti.</li>
+                    <li><strong>Calcolatrice Completa:</strong> Apre un modulo per simulare timbrature, pause ed esuberi.</li>
+                    <li><strong>Aggiorna Festività:</strong> Propaga eventuali modifiche al calendario festività a tutti i fogli.</li>
+                    <li><strong>Esporta / Importa Dati:</strong> Crea e ripristina backup (CSV) delle tue ore. Totalmente compatibile con macOS.</li>
+                </ul>
+
+                <h3>📊 Report (Statistiche)</h3>
+                <ul>
+                    <li><strong>Dashboard:</strong> Apre i grafici annuali. Clicca la freccina sotto l'icona per <strong>Esportare in PDF</strong>.</li>
+                    <li><strong>Riepilogo:</strong> Vai rapidamente alla matrice dati annuale.</li>
+                </ul>
+
+                <h3>⚙️ Manutenzione (Avanzate)</h3>
+                <p>Area protetta da password amministratore per sbloccare la struttura, forzare l'aggiornamento delle formule o mostrare i fogli di calcolo nascosti.</p>
+            </div>
+
+            <!-- SEZIONE 4: UTILIZZO -->
+            <div id="utilizzo" class="content-section hidden">
+                <h2>Utilizzo del file</h2>
+                <p>Nei fogli mensili devi inserire solo:</p>
+                <ul>
+                    <li>Orario di Entrata (es. <code>08:05</code>)</li>
+                    <li>Orario di Uscita (es. <code>14:00</code>)</li>
+                </ul>
+                <p>Il calcolo di <strong>FLEP</strong> (Esubero), <strong>FLEN</strong> (Debito) e <strong>Buoni Pasto</strong> è immediato.</p>
+
+                <h3>Gestione Ritardi (MOPER)</h3>
+                <p>La fascia di flessibilità è 08:00 - 09:00. Se timbri dopo le 09:00, il sistema segnerà il ritardo in rosso e lo conteggerà automaticamente nella colonna <strong>MOPER</strong> (Motivi Personali).</p>
+                
+                <h3>Assenze e Permessi speciali</h3>
+                <p>Oltre a Ferie e Malattia, l'algoritmo riconosce ora una vasta gamma di permessi inserendoli direttamente nella colonna Entrata (es: L104, LUTTO). Consulta la sezione <em>Legenda</em> per l'elenco completo.</p>
+            </div>
+
+            <!-- SEZIONE 5: LEGENDA (Aggiornata coi nuovi codici) -->
+            <div id="legenda" class="content-section hidden">
+                <h2>Legenda Codici</h2>
+                <p>Digita i seguenti codici nella prima cella di <strong>Entrata</strong> del giorno interessato. Il sistema autocompilerà le ore necessarie.</p>
+
+                <h3>Codici Base</h3>
+                <table>
+                    <thead><tr><th style="width: 120px;">Codice</th><th>Descrizione</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>F</strong></td><td>Ferie (Giornata intera)</td></tr>
+                        <tr><td><strong>F1/2</strong></td><td>Mezza giornata di Ferie (3:36 h)</td></tr>
+                        <tr><td><strong>Fest</strong></td><td>Giorno di Festività Nazionale/Comunale</td></tr>
+                        <tr><td><strong>R</strong></td><td>Recupero ore da Esubero/Straordinario (7:12 h)</td></tr>
+                        <tr><td><strong>M</strong></td><td>Malattia</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Codici Speciali (Permessi)</h3>
+                <table>
+                    <thead><tr><th style="width: 120px;">Codice</th><th>Descrizione</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>P18H (P02)</strong></td><td>Permessi retribuiti (max. 18 h/anno)</td></tr>
+                        <tr><td><strong>VISMED (P05)</strong></td><td>Visite Mediche Personali (max. 18 h/anno)</td></tr>
+                        <tr><td><strong>GRAINF (P03)</strong></td><td>Visite mediche Famigliari (max. 21:36 h/anno)</td></tr>
+                        <tr><td><strong>MISS</strong></td><td>Missione esterna</td></tr>
+                        <tr><td><strong>L104</strong></td><td>Permessi speciali (Legge 104)</td></tr>
+                        <tr><td><strong>LUTTO</strong></td><td>Permesso per lutto</td></tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
-    </main>
 
-    <script type="text/javascript">
-        // Variabili Globali
-        let historyStack = [];
-        let currentSection = 'iniziare';
-        const sections = document.querySelectorAll('.content-section');
-        const menuItems = document.querySelectorAll('#table-of-contents li');
-        const guideContainer = document.getElementById('guide-content');
-        const searchContainer = document.getElementById('search-output-container');
-        const originalContents = {}; 
+        <div id="search-output-container">
+            <h4 style="margin-bottom: 15px;">Miglior risultato</h4>
+            <div id="search-best-match-box"></div>
 
-        // 1. Inizializzazione
-        document.addEventListener('DOMContentLoaded', function () {
-            // Salva il contenuto originale (senza evidenziazioni)
-            sections.forEach(section => {
-                originalContents[section.id] = section.innerHTML;
+            <h4 style="margin-top: 25px; margin-bottom: 10px;">Altri risultati</h4>
+            <ul id="search-results-list" class="search-results-list"></ul>
+        </div>
+
+    </div>
+</main>
+
+<script type="text/javascript">
+    // Variabili Globali
+    let historyStack = [];
+    let currentSection = 'iniziare';
+    const sections = document.querySelectorAll('.content-section');
+    const menuItems = document.querySelectorAll('#table-of-contents li');
+    const guideContainer = document.getElementById('guide-content');
+    const searchContainer = document.getElementById('search-output-container');
+    const originalContents = {};
+
+    // 1. Inizializzazione
+    document.addEventListener('DOMContentLoaded', () => {
+        // Salva HTML originale per la ricerca
+        sections.forEach(sec => {
+            originalContents[sec.id] = sec.innerHTML;
+        });
+
+        // Attiva i Listener per il MENU
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                showSection(item.dataset.target);
             });
+        });
 
-            // Attiva i Listener per il MENU
-            menuItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    showSection(item.dataset.target);
+        // Avvia alla prima pagina
+        showSection('iniziare');
+    });
+
+    // 2. Navigazione tra Sezioni
+    function showSection(targetId, isBackAction = false) {
+        // Gestione Storia
+        if (!isBackAction && currentSection !== targetId && currentSection !== 'search') {
+            historyStack.push(currentSection);
+            updateBackButton();
+        }
+        currentSection = targetId;
+
+        // UI Reset
+        searchContainer.style.display = 'none';
+        guideContainer.style.display = 'block';
+        document.getElementById('search-box').value = '';
+
+        // Mostra Sezione Corretta
+        sections.forEach(sec => {
+            if(sec.id === targetId) {
+                sec.innerHTML = originalContents[sec.id]; // Reset HTML
+                sec.classList.remove('hidden');
+                // Scrolla in alto
+                document.getElementById('scroll-container').scrollTop = 0;
+            } else {
+                sec.classList.add('hidden');
+            }
+        });
+
+        // Evidenzia Menu
+        menuItems.forEach(item => {
+            if(item.dataset.target === targetId) item.classList.add('active');
+            else item.classList.remove('active');
+        });
+    }
+
+    // Funzione per i link rapidi
+    window.customNavigate = function(id) {
+        showSection(id);
+    };
+
+    // 3. Logica di Ricerca
+    const searchBox = document.getElementById('search-box');
+
+    searchBox.addEventListener('input', function(e) {
+        const term = e.target.value.trim().toLowerCase();
+
+        if(term.length < 2) {
+            if(currentSection === 'search') {
+                const last = historyStack.length > 0 ? historyStack[historyStack.length-1] : 'iniziare';
+                showSection(last, true);
+            }
+            return;
+        }
+
+        // Attiva modalità ricerca
+        currentSection = 'search';
+        guideContainer.style.display = 'none';
+        searchContainer.style.display = 'block';
+        menuItems.forEach(item => item.classList.remove('active'));
+
+        performSmartSearch(term);
+    });
+
+    function performSmartSearch(term) {
+        const results = [];
+
+        sections.forEach(section => {
+            const textContent = section.innerText.toLowerCase();
+            if(textContent.includes(term)) {
+                let score = 0;
+                const title = section.querySelector('h1, h2').innerText;
+
+                if(title.toLowerCase().includes(term)) score += 10;
+                score += (textContent.split(term).length - 1);
+
+                const snippet = getSnippet(section.innerText, term);
+
+                results.push({
+                    id: section.id,
+                    title: title,
+                    score: score,
+                    snippet: snippet
                 });
-            });
-            
-            // Avvia alla prima pagina
-            showSection('iniziare');
+            }
         });
 
-        // 2. Navigazione tra Sezioni
-        function showSection(targetId, isBackAction = false) {
-            // Gestione Storia
-            if (!isBackAction && currentSection !== targetId && currentSection !== 'search') {
-                historyStack.push(currentSection);
-                updateBackButton();
-            }
-            currentSection = targetId;
+        results.sort((a, b) => b.score - a.score);
+        renderSearchResults(results, term);
+    }
 
-            // UI Reset
-            searchContainer.style.display = 'none';
-            guideContainer.style.display = 'block';
-            document.getElementById('search-box').value = ''; 
+    function getSnippet(text, term) {
+        const index = text.toLowerCase().indexOf(term);
+        const start = Math.max(0, index - 40);
+        const end = Math.min(text.length, index + 60);
+        return "..." + text.substring(start, end) + "...";
+    }
 
-            // Mostra Sezione Corretta
-            sections.forEach(sec => {
-                if(sec.id === targetId) {
-                    sec.innerHTML = originalContents[sec.id]; // Reset HTML
-                    sec.classList.remove('hidden');
-                    // Scrolla in alto
-                    document.getElementById('scroll-container').scrollTop = 0;
-                } else {
-                    sec.classList.add('hidden');
-                }
-            });
+    function renderSearchResults(results, term) {
+        const bestBox = document.getElementById('search-best-match-box');
+        const list = document.getElementById('search-results-list');
 
-            // Evidenzia Menu
-            menuItems.forEach(item => {
-                if(item.dataset.target === targetId) item.classList.add('active');
-                else item.classList.remove('active');
-            });
+        bestBox.innerHTML = '';
+        list.innerHTML = '';
+
+        if(results.length === 0) {
+            bestBox.innerHTML = '<p style="color:#666; font-style:italic;">Nessun risultato trovato.</p>';
+            return;
         }
 
-        // Funzione per i link rapidi
-        window.customNavigate = function(id) {
-            showSection(id);
-        };
+        const best = results;
+        const bestDiv = document.createElement('div');
+        bestDiv.className = 'search-best-match';
+        bestDiv.innerHTML = `
+            <h3><i class="ms-Icon ms-Icon--Lightbulb"></i> ${highlightText(best.title, term)}</h3>
+            <div class="search-snippet">${highlightText(best.snippet, term)}</div>
+        `;
+        bestDiv.onclick = () => goToSearchResult(best.id, term);
+        bestBox.appendChild(bestDiv);
 
-        // 3. Logica di Ricerca
-        const searchBox = document.getElementById('search-box');
-        
-        searchBox.addEventListener('input', function(e) {
-            const term = e.target.value.trim().toLowerCase();
-            
-            if(term.length < 2) {
-                if(currentSection === 'search') {
-                    const last = historyStack.length > 0 ? historyStack[historyStack.length-1] : 'iniziare';
-                    showSection(last, true);
-                }
-                return;
-            }
-
-            // Attiva modalità ricerca
-            currentSection = 'search';
-            guideContainer.style.display = 'none';
-            searchContainer.style.display = 'block';
-            
-            menuItems.forEach(i => i.classList.remove('active'));
-
-            performSmartSearch(term);
-        });
-
-        function performSmartSearch(term) {
-            const results = [];
-            
-            sections.forEach(section => {
-                const textContent = section.innerText.toLowerCase();
-                if(textContent.includes(term)) {
-                    let score = 0;
-                    const title = section.querySelector('h1, h2').innerText;
-                    
-                    if(title.toLowerCase().includes(term)) score += 10;
-                    score += (textContent.split(term).length - 1); 
-                    
-                    const snippet = getSnippet(section.innerText, term);
-
-                    results.push({
-                        id: section.id,
-                        title: title,
-                        score: score,
-                        snippet: snippet
-                    });
-                }
-            });
-
-            results.sort((a, b) => b.score - a.score);
-            renderSearchResults(results, term);
-        }
-
-        function getSnippet(text, term) {
-            const index = text.toLowerCase().indexOf(term);
-            const start = Math.max(0, index - 40);
-            const end = Math.min(text.length, index + 60);
-            return "..." + text.substring(start, end) + "...";
-        }
-
-        function renderSearchResults(results, term) {
-            const bestBox = document.getElementById('search-best-match-box');
-            const list = document.getElementById('search-results-list');
-            
-            bestBox.innerHTML = '';
-            list.innerHTML = '';
-
-            if(results.length === 0) {
-                bestBox.innerHTML = '<p style="color:#666; font-style:italic;">Nessun risultato trovato.</p>';
-                return;
-            }
-
-            const best = results[0];
-            const bestDiv = document.createElement('div');
-            bestDiv.className = 'search-best-match';
-            bestDiv.innerHTML = `
-                <h3><i class="ms-Icon ms-Icon--Lightbulb"></i> ${highlightText(best.title, term)}</h3>
-                <div class="search-snippet">${highlightText(best.snippet, term)}</div>
+        for(let i = 1; i < results.length; i++) {
+            const res = results[i];
+            const li = document.createElement('li');
+            li.className = 'search-result-item';
+            li.innerHTML = `
+                <span class="search-result-title">${highlightText(res.title, term)}</span>
+                <span class="search-result-path">Trovato in: ${res.id.toUpperCase()}</span>
             `;
-            bestDiv.onclick = () => goToSearchResult(best.id, term);
-            bestBox.appendChild(bestDiv);
-
-            for(let i = 1; i < results.length; i++) {
-                const res = results[i];
-                const li = document.createElement('li');
-                li.className = 'search-result-item';
-                li.innerHTML = `
-                    <span class="search-result-title">${highlightText(res.title, term)}</span>
-                    <span class="search-result-path">Trovato in: ${res.id.toUpperCase()}</span>
-                `;
-                li.onclick = () => goToSearchResult(res.id, term);
-                list.appendChild(li);
-            }
+            li.onclick = () => goToSearchResult(res.id, term);
+            list.appendChild(li);
         }
+    }
 
-        function highlightText(text, term) {
-            const regex = new RegExp(`(${term})`, 'gi');
-            return text.replace(regex, '<mark>$1</mark>');
+    function highlightText(text, term) {
+        const regex = new RegExp(`(${term})`, 'gi');
+        return text.replace(regex, '<mark>$1</mark>');
+    }
+
+    function goToSearchResult(sectionId, term) {
+        showSection(sectionId);
+
+        const section = document.getElementById(sectionId);
+        const originalHTML = originalContents[sectionId];
+
+        try {
+            // Evidenziazione nel testo (non persistente dopo navigazione)
+            section.innerHTML = originalHTML.replace(new RegExp(`(?![^<]+>)(${term})`, "gi"), "<mark>$1</mark>");
+        } catch(e) {
+            section.innerHTML = originalHTML;
         }
+    }
 
-        function goToSearchResult(sectionId, term) {
-            showSection(sectionId);
-            
-            const section = document.getElementById(sectionId);
-            const originalHTML = originalContents[sectionId];
-            
-            try {
-               // Evidenziazione nel testo (non persistente dopo navigazione)
-               section.innerHTML = originalHTML.replace(new RegExp(`(?![^<]+>)(${term})`, "gi"), "<mark>$1</mark>");
-            } catch(e) {
-               section.innerHTML = originalHTML;
-            }
+    // 4. Pulsanti Header
+    const btnHome = document.getElementById('btn-home');
+    const btnBack = document.getElementById('btn-back');
+
+    btnHome.addEventListener('click', () => showSection('iniziare'));
+
+    btnBack.addEventListener('click', () => {
+        if(historyStack.length > 0) {
+            const prev = historyStack.pop();
+            showSection(prev, true);
+            updateBackButton();
         }
+    });
 
-        // 4. Pulsanti Header
-        const btnHome = document.getElementById('btn-home');
-        const btnBack = document.getElementById('btn-back');
-
-        btnHome.addEventListener('click', () => showSection('iniziare'));
-        
-        btnBack.addEventListener('click', () => {
-            if(historyStack.length > 0) {
-                const prev = historyStack.pop();
-                showSection(prev, true);
-                updateBackButton();
-            }
-        });
-
-        function updateBackButton() {
-            if(historyStack.length > 0) btnBack.classList.remove('disabled');
-            else btnBack.classList.add('disabled');
-        }
-
-    </script>
+    function updateBackButton() {
+        if(historyStack.length > 0) btnBack.classList.remove('disabled');
+        else btnBack.classList.add('disabled');
+    }
+</script>
 </body>
 </html>

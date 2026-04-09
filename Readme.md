@@ -30,3 +30,9 @@ Nel file `manifest.xml` dell'addin Excel, imposta il percorso della guida come:
 
 
 <SourceLocation DefaultValue="https://federicocopeta.github.io/TimbratureGuida/index.html"/>
+
+## [3.1.0] - 2026-04-09
+### Added
+- Aggiunto descrizioni delle funzioni aggiuntive
+### Fix
+- Corretto supporto multipiattaforma Mac/windows
