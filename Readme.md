@@ -22,7 +22,7 @@ La guida è progettata per offrire un'esperienza simile alla guida di Office:
 
 La guida è pubblicata tramite GitHub Pages ed è accessibile al seguente indirizzo:
 
-👉 [https://federicocopeta.github.io/TimratureGuida/
+👉 [https://federicocopeta.github.io/TimbratureGuida/
 
 ## 🧩 Integrazione con Excel
 
